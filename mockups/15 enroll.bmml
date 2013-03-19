@@ -1,0 +1,110 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1166" measuredH="964" mockupW="1024" mockupH="852">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="142" y="112" w="1024" h="852" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Law%20Society%20Member%20Enrollment</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Title" x="184" y="212" w="626" h="-1" measuredW="558" measuredH="50" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>left</align>
+        <text>Law%20Society%20Enrollment%20Sample</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::SubTitle" x="279" y="378" w="-1" h="-1" measuredW="78" measuredH="24" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>Joe%20Smith</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Icon" x="219" y="354" w="-1" h="-1" measuredW="48" measuredH="48" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>ContactIcon%7Clarge</icon>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::SubTitle" x="219" y="411" w="-1" h="-1" measuredW="43" measuredH="24" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>DOB%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="25" controlTypeID="com.balsamiq.mockups::Canvas" x="184" y="339" w="942" h="195" measuredW="100" measuredH="70" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>0.25</backgroundAlpha>
+        <borderColor>16777215</borderColor>
+        <color>10066329</color>
+      </controlProperties>
+    </control>
+    <control controlID="32" controlTypeID="com.balsamiq.mockups::Button" x="191" y="649" w="-1" h="-1" measuredW="105" measuredH="34" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <menuIcon>false</menuIcon>
+        <size>24</size>
+        <text>Confirm</text>
+      </controlProperties>
+    </control>
+    <control controlID="33" controlTypeID="com.balsamiq.mockups::Canvas" x="184" y="545" w="940" h="84" measuredW="100" measuredH="70" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>0.25</backgroundAlpha>
+        <borderColor>16777215</borderColor>
+        <color>10066329</color>
+      </controlProperties>
+    </control>
+    <control controlID="34" controlTypeID="com.balsamiq.mockups::SubTitle" x="219" y="560" w="372" h="-1" measuredW="245" measuredH="24" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>Law%20Society%20Membership%20Number</text>
+      </controlProperties>
+    </control>
+    <control controlID="35" controlTypeID="com.balsamiq.mockups::TextInput" x="219" y="587" w="240" h="-1" measuredW="68" measuredH="27" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>1234567</text>
+      </controlProperties>
+    </control>
+    <control controlID="36" controlTypeID="com.balsamiq.mockups::Label" x="299" y="142" w="-1" h="-1" measuredW="156" measuredH="21" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>https%3A//law.a2p3.net/enroll</text>
+      </controlProperties>
+    </control>
+    <control controlID="37" controlTypeID="com.balsamiq.mockups::Paragraph" x="651" y="352" w="460" h="169" measuredW="200" measuredH="80" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>If%20this%20were%20a%20real%20enrollment%20process%2C%20the%20name%2C%20DOB%2C%20address%2C%20email%20and%20membership%20number%20and%20any%20other%20shared%20identity%20idenity%20would%20be%20confirmed%20to%20match%20information%20in%20the%20existing%20database.%20When%20the%20user%20confirms%2C%20the%20A2P3%20Directed%20Identifier%20would%20be%20linked%20to%20the%20existing%20database%20and%20the%20user%20would%20be%20able%20authorize%20apps%20to%20access%20their%20their%20membership%20status%20and%20membership%20number.</text>
+      </controlProperties>
+    </control>
+    <control controlID="38" controlTypeID="com.balsamiq.mockups::Label" x="267" y="413" w="-1" h="-1" measuredW="51" measuredH="21" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>January</text>
+      </controlProperties>
+    </control>
+    <control controlID="39" controlTypeID="com.balsamiq.mockups::Label" x="318" y="413" w="-1" h="-1" measuredW="22" measuredH="21" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>30</text>
+      </controlProperties>
+    </control>
+    <control controlID="40" controlTypeID="com.balsamiq.mockups::Label" x="340" y="413" w="-1" h="-1" measuredW="35" measuredH="21" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>1960</text>
+      </controlProperties>
+    </control>
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::Label" x="219" y="435" w="-1" h="-1" measuredW="99" measuredH="21" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Apartment%201000</text>
+      </controlProperties>
+    </control>
+    <control controlID="42" controlTypeID="com.balsamiq.mockups::Label" x="219" y="456" w="-1" h="-1" measuredW="99" measuredH="21" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>123%20Main%20Street</text>
+      </controlProperties>
+    </control>
+    <control controlID="43" controlTypeID="com.balsamiq.mockups::Label" x="219" y="477" w="-1" h="-1" measuredW="127" measuredH="21" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Anyville%2C%20BC%20%20U1U%201U1</text>
+      </controlProperties>
+    </control>
+    <control controlID="44" controlTypeID="com.balsamiq.mockups::Label" x="219" y="498" w="-1" h="-1" measuredW="111" measuredH="21" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>joe@example.com</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

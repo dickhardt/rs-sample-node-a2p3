@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,user-scalable=yes">
+	<link rel="stylesheet" href="style.css">
+	<title>Sample App</title>
+</head>
+<body>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script type="text/javascript" src="/jquery.qrcode.min.js"></script>
+
+	<header class="header">
+		<section class="headerContainer">
+			<div class="mainTitle">Law Society</div>
+			<br>
+			<div class="mainTitleText">A sample Resource Server for <a href="http://www.a2p3.net">A2P3</a></div>
+		</section>
+	</header>
+	<section class="mainContent">
+		<div class="mainContentWrap">
+			<div class="mainContentDoubleWrap">
+				<p class="mainContentSubTitle" id="subTitle">
+          As a user, this site allows you to <a href="/lawyer">enroll</a> yourself as a "lawyer" so that you can provide your "Law Society" membership status to other applications.
+          <br>
+          As a developer, you can <a href="/developer">register</a> your App so that you can request various <a href="/documentation">attributes</a> about a user.
+          <br>
+          If you are one of the site administrators, you can review membership and registered Apps.
+        </p>
+			</div>
+      <a class="genericButton" href="" id="loginLawyer" class="loginItem">&nbsp;&nbsp;Lawyers&nbsp;&nbsp;</a>
+      <a class="genericButton" href="" id="loginDeveloper" class="loginItem">&nbsp;&nbsp;Developers&nbsp;&nbsp;</a>
+      <a class="genericButton" href="" id="loginAdmin" class="loginItem">&nbsp;&nbsp;Administrators&nbsp;&nbsp;</a>
+			<div id="qrcodeForm">
+	    	<p>Scan QR Code with your Agent to login</p>
+    	<div id="qrcode"></div>
+			</div>
+			<br><Br>
+		</div>
+
+	</section>
+
+<script type="text/javascript">
+
+function onReady() {
+
+  // check if are running on iOS or android, only agent platforms currently supported
+  var deviceAgent = navigator.userAgent.toLowerCase()
+  var iOS = deviceAgent.match(/(iphone|ipod|ipad)/)
+  var isAndroid = deviceAgent.indexOf("android") > -1
+  var agentDirect = iOS // || isAndroid // only support iOS currently
+
+  $('#qrcodeForm').hide()
+
+  var cycles = 0
+
+  function loginClosure ( type ) {
+    return function login () {
+      // function that polls to see if we are logged in yet
+      function checkQR ( qrSession ) {
+        $.post( '/'+type+'/check/QR', { qrSession: qrSession }, function ( data, status ) {
+          if ( status == 'success' && data) {
+            // reload if not scanned in 120 seconds
+            if (cycles++ > (2 * 120))
+              return window.location = '/'
+            // send to error page if something failed
+            if (data.error)
+              return window.location = '/error'
+            // still waiting for QR to be scanned
+            if ( data.status == 'waiting')
+              return setTimeout( function() { checkQR( qrSession ) }, 500 )
+            // we are logged in, redirect to page for that type of user
+            if (data.status == 'success') {
+              window.location = '/'+type
+            }
+          }
+        })
+      } // checkQR ()
+
+      if (agentDirect) {
+        window.location = '/'+type+'/login/direct'
+      } else {  // put up QR code
+        $.post( '/'+type+'/login/QR', function ( data, status ) {
+          if (status == "success" && !data.error && data.result && data.result.qrURL && data.result.qrSession ) {
+            $('#qrcode').empty()
+            $('#qrcodeForm').fadeIn('fast')
+            $('#qrcode').qrcode( {width: 400, height: 400, text: data.result.qrURL, render: 'table' } )
+            $('#qrcode').css({cursor: 'none'});
+            cycles = 0
+            setTimeout( function () { checkQR( data.result.qrSession ) }, 500 )
+          }
+        })
+      }
+    return false
+    } // login ()
+  }
+
+  $('#loginLawyer').click( loginClosure( 'lawyer' ) )
+  $('#loginDeveloper').click( loginClosure( 'developer' ) )
+  $('#loginAdmin').click( loginClosure( 'admin' ) )
+
+} // onReady
+
+$(document).ready(onReady)
+
+</script>
+
+</body>
+</html>

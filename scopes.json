@@ -1,0 +1,5 @@
+{ "/scope/number": { "en": "Access your Law Society membership number from '%host'." }
+, "/scope/anytime/number": { "en": "Access your Law Society membership number from '%host' at **anytime**." }
+, "/scope/status": { "en": "Access your Law Society membership status from '%host'." }
+, "/scope/anytime/status": { "en": "Access your Law Society membership status from '%host' at **anytime**." }
+}

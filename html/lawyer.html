@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+  .loginStatus {text-align:center;}
+  .di {text-align:right;}
+</style>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,user-scalable=no">
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script type="text/javascript"    src="/js/purl.js"></script>
+  <script type="text/javascript"    src="/js/jquery.qrcode.min.js"></script>
+
+
+<header class="header">
+	<section class="headerContainer">
+		<span class="mainTitle">Law Society</span>
+		<div class="mainTitleText">Welcome to the Member Portal</div>
+	</section>
+</header>
+
+<section class="mainContent">
+	<div class="mainContentWrap">
+		<div class="di">
+		  <div id="directedIdentifier"></div>
+		  <a class="otherLinks" href="" id="showDI">show DI</a>
+		  <a class="otherLinks" href="" id="hideDI">hide DI</a>
+		</div>
+		<div id="introduction">
+		  This is an <a class="otherLinks" href="http://www.a2p3.net/">A2P3</a> demonstration site.
+		  <ul>
+		    <li>Openning an account will prompt for the release of data, accept TOS and create an account.
+		    </li>
+		    <li>Login will authenticate the user, check if they have an account, and the SIN will be acquired with an anytime OAuth token.
+		    </li>
+		    <li>If the remember me box is checked during login while scanning a QR code, a button to login as that user will appear next time.</li>
+		  </ul>
+		</div>
+		<br><br>
+		<div class="loginStatus">
+		  <a href="/logout" id="logout" class="genericButton">Logout</a>
+		  <a href="/logout" id="cancel" class="genericButton">Cancel</a>
+		</div>
+		<br><br>
+		<div id="profileSection" class="genericSection">
+			<p class="categoryTitle">Profile</p>
+			<table id="profileTable" class=""> </table>
+      <p>If this were a real enrollment process, the name, DOB, address, email and membership number and any other shared identity idenity would be confirmed to match information in the existing database. When the user confirms, the A2P3 Directed Identifier would be linked to the existing database and the user would be able authorize apps to access their their membership status and membership number.</p>
+		</div>
+
+    <div id="enrollmentSection" class="enrollSection">
+      <div class="categoryTitle">Membership Verification
+      </div>
+      <div class="categoryTitleDetail">Please set a ficticious value to simulate a membership number.</div>
+      <div class="formItemWrap">
+        <span class="formItemTitle">Law Society Membership Number</span> <span
+          class="formItem"> <input type="text" id="si_input"
+          placeholder="XXX-XX-XXX" class="textSIN" name="number"> <!-- should these be a different class ??? -->
+        </span>
+      </div>
+    </div>
+
+<!-- need membership status section -->
+
+    <div id="statusSection" class="statusSection">
+      <div class="categoryTitle">Membership Status
+      </div>
+      <div class="categoryTitleDetail">Please set a ficticious value to simulate a membership number.</div>
+      <div class="formItemWrap">
+        <span class="formItemTitle">Law Society Membership Number</span> <span
+          class="formItem"> <input type="text" id="si_input"
+          placeholder="XXX-XX-XXX" class="textSIN" name="number"> <!-- should these be a different class ??? -->
+        </span>
+      </div>
+    </div>
+
+
+		<div id="TOS" class="genericSection">
+			<p class="categoryTitle">Terms of Service</p>
+			<!-- make the a scrollable text box -->
+			<p>
+			  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</p>
+			<p align="right">
+				<a class="genericButton"s href="" id="agreeTOS">I Agree</a>
+			</p>
+		</div>
+	</div>
+</section>
+
+
+
+<!-- TODO: add in button to Status section to change status, and add in popup that let's user change status -->
+
+<script type="text/javascript">
+
+function onReady() {
+
+  $('#logout').hide()
+  $('#cancel').hide()
+  $('#TOS').hide()
+  $('#profileSection').hide()
+  $('#enrollmentSection').hide()
+  $('#hideDI').hide()
+  $('#directedIdentifier').hide()
+  $('#removeAccount').hide()
+  $('#enrollmentSection').hide()
+  $('#statusSection').hide()
+
+  $('#hideDI').click( function () {
+    $('#directedIdentifier').hide()
+    $('#hideDI').hide()
+    $('#showDI').show()
+    return false
+  })
+
+  $('#showDI').click( function () {
+    $('#showDI').hide()
+    $('#hideDI').show()
+    $('#directedIdentifier').show()
+    return false
+  })
+
+  function drawProfile( profile ) {
+    if (!profile) return window.location = '/'
+    // console.log( profile )
+    $('#directedIdentifier').text( profile.di )
+
+// GREG: would like the profile page to look like it is in the mockups
+
+    $.each( profile, function ( item, value ) {
+      if (item == 'status' || item == 'di') return
+      if (item == 'photo') {
+        $('#profileTable').append('<tr><td class="genericLabel">' + item + ':</td><td><img class="photoImage" src="' + value + '"></td></tr>')
+      } else {
+        $('#profileTable').append('<tr><td class="genericLabel">' + item + ':</td><td class="">' + value + '</td></tr>')
+      }
+    })
+    $('#profileSection').show()
+    if ( !profile.status ) {  // need to enroll and agree to TOS
+      $('#enrollmentSection').show()
+      $('#cancel').show()
+      $('#TOS').show()
+    } else {
+      $('#statusSection').show()
+      $('#removeAccount').show()
+      $('#logout').show()
+    }
+  }
+
+  $('#agreeTOS').click( function () {
+    // $.ajaxSetup(
+    //   { type: 'POST'
+    //   , headers: { "cache-control": "no-cache" }
+    //   } )
+    $.post( '/agree/tos', function ( data, status ) {
+      window.location = '/lawyer'
+    })
+    return false
+  })
+
+  // see if we have a profile to show on a reload
+  $.post( '/lawyer/profile', function ( data, status ) {
+    // console.log( '/profile ->', data )
+    if (status == "success" && !data.error && data.result ) {
+      drawProfile( data.result )
+    }
+    else
+      window.location = '/'
+  })
+
+} // onReady
+
+$(document).ready(onReady)
+
+</script>
+
+</body>
+</html>

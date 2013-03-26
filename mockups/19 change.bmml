@@ -131,34 +131,35 @@
         <text>change</text>
       </controlProperties>
     </control>
-    <control controlID="55" controlTypeID="__group__" x="341" y="602" w="292" h="165" measuredW="292" measuredH="165" zOrder="23" locked="false" isInGroup="-1">
+    <control controlID="56" controlTypeID="com.balsamiq.mockups::Button" x="979" y="365" w="-1" h="-1" measuredW="122" measuredH="27" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Remove%20Account</text>
+      </controlProperties>
+    </control>
+    <control controlID="63" controlTypeID="__group__" x="299" y="599" w="292" h="190" measuredW="292" measuredH="190" zOrder="24" locked="false" isInGroup="-1">
       <groupChildrenDescriptors>
-        <control controlID="0" controlTypeID="com.balsamiq.mockups::TitleWindow" x="0" y="0" w="292" h="165" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="55">
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::TitleWindow" x="0" y="0" w="292" h="190" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="63">
           <controlProperties>
             <text>Select%20your%20new%20membership%20status</text>
           </controlProperties>
         </control>
-        <control controlID="1" controlTypeID="com.balsamiq.mockups::Button" x="201" y="132" w="-1" h="-1" measuredW="76" measuredH="27" zOrder="1" locked="false" isInGroup="55">
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Button" x="38" y="150" w="76" h="31" measuredW="76" measuredH="27" zOrder="1" locked="false" isInGroup="63">
           <controlProperties>
             <text>CANCEL</text>
           </controlProperties>
         </control>
-        <control controlID="2" controlTypeID="com.balsamiq.mockups::Button" x="38" y="42" w="167" h="27" measuredW="133" measuredH="27" zOrder="2" locked="false" isInGroup="55">
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Button" x="194" y="150" w="76" h="31" measuredW="75" measuredH="27" zOrder="2" locked="false" isInGroup="63">
           <controlProperties>
-            <text>NOT%20PRACTISING</text>
+            <text>UPDATE</text>
           </controlProperties>
         </control>
-        <control controlID="3" controlTypeID="com.balsamiq.mockups::Button" x="37" y="79" w="167" h="27" measuredW="79" measuredH="27" zOrder="3" locked="false" isInGroup="55">
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::RadioButtonGroup" x="39" y="49" w="-1" h="-1" measuredW="172" measuredH="72" zOrder="3" locked="false" isInGroup="63">
           <controlProperties>
-            <text>RETIRED</text>
+            <size>16</size>
+            <text>%28o%29%20PRACTISING%0A%28%20%29%20NON_PRACTISING%0A%28%20%29%20RETIRED</text>
           </controlProperties>
         </control>
       </groupChildrenDescriptors>
-    </control>
-    <control controlID="56" controlTypeID="com.balsamiq.mockups::Button" x="979" y="365" w="-1" h="-1" measuredW="122" measuredH="27" zOrder="24" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>Remove%20Account</text>
-      </controlProperties>
     </control>
   </controls>
 </mockup>

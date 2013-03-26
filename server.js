@@ -137,7 +137,7 @@ app.post('/dashboard/refresh/key',  developer.refreshKey )
 app.post('/dashboard/getkey',       developer.getkey )
 
 // admin APIs
-app.post('/admin/membership', admin.membership )
+app.post('/admin/memberships', admin.memberships )
 app.post('/admin/membershipStatus', admin.membershipStatus )
 app.post('/admin/applications', admin.applications )
 

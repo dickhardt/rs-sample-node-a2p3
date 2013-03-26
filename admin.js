@@ -145,8 +145,25 @@ exports.checkQR = function ( req, res, next ) {
   })
 }
 
-exports.membership = function  ( req, res ) {
+var dummyMemberships =
+  [ [ 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Giacomo Guilizzoni', 'Giacomo@example.com', 'Jan 01 1960', '0123456700', 'PRACTISING' ]
+  , [ 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Marco Botton', 'Marco@example.com', 'Jan 01 1960', '0123456711', 'NON-PRACTISING' ]
+  , [ 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Mariah Maclachlan', 'Mariah@example.com', 'Jan 01 1960', '0123456799', 'RETIRED' ]
+  , [ 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Valerie Liberty', 'Valerie@example.com', 'Jan 01 1960', '0123456722', 'PRACTISING' ]
+  , [ 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Guido Jack Guilizzoni', 'Guido@example.com', 'Jan 01 1960', '0123456777', 'NON-PRACTISING' ]
+  ]
 
+var dummyApplications =
+  [ [ 'Sample1 App', 'sample.example.com', 'fred@example.com', 'Jan 05 2013', 'two days ago', 'none' ]
+  , [ 'Sample2 App', 'sample.example.com', 'fred@example.com', 'Jan 04 2013', 'two days ago', 'status' ]
+  , [ 'Sample3 App', 'sample.example.com', 'fred@example.com', 'Jan 23 2013', 'two days ago', 'number' ]
+  , [ 'Sample4 App', 'sample.example.com', 'fred@example.com', 'Jan 15 2013', 'two days ago', 'status, number' ]
+  , [ 'Sample5 App', 'sample.example.com', 'fred@example.com', 'Jan 04 2013', 'two days ago', 'status, number' ]
+  , [ 'Sample6 App', 'sample.example.com', 'fred@example.com', 'Jan 01 2013', 'two days ago', 'none' ]
+  ]
+
+exports.memberships = function  ( req, res ) {
+  res.send( { result: dummyMemberships } )
 }
 
 exports.membershipStatus = function  ( req, res ) {
@@ -154,7 +171,7 @@ exports.membershipStatus = function  ( req, res ) {
 }
 
 exports.applications = function  ( req, res ) {
-
+  res.send( { result: dummyApplications } )
 }
 
 /*

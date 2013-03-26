@@ -7,14 +7,15 @@
 </style>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,user-scalable=no">
-	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+  <link rel="stylesheet" href="/jquery.dataTables.css">
+
 </head>
 <body>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-  <script type="text/javascript"    src="/js/purl.js"></script>
-  <script type="text/javascript"    src="/js/jquery.qrcode.min.js"></script>
-
-
+  <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+  <script type="text/javascript" src="/jquery.dataTables.js"></script>
 <header class="header">
 	<section class="headerContainer">
 		<span class="mainTitle">Law Society</span>
@@ -23,22 +24,113 @@
 </header>
 
 <section class="mainContent">
-	<div class="mainContentWrap">
-		<div class="di">
-		  <div id="directedIdentifier"></div>
-		  <a class="otherLinks" href="" id="showDI">show DI</a>
-		  <a class="otherLinks" href="" id="hideDI">hide DI</a>
-		</div>
+      <a href="/logout" id="logout" class="genericButton">logout </a>
 
-		</div>
+	<div class="mainContentWrap">
+
+    <div id="tabs">
+      <ul>
+        <li><a href="#tabs-Memberships">Memberships</a></li>
+        <li><a href="#tabs-Applications">Applications</a></li>
+      </ul>
+      <div id="tabs-Memberships">
+        <table id="table-Memberships">
+          <thead>
+            <tr role="row">
+              <TH role="columnheader" class="tableRowMembershipPhoto">Photo</TH>
+              <TH role="columnheader" class="tableRowMembershipName">Name</TH>
+              <TH role="columnheader" class="tableRowMembershipEmail">Email</TH>
+              <TH role="columnheader" class="tableRowMembershipDOB">Date of Birth</TH>
+              <TH role="columnheader" class="tableRowMembershipNumber">Number</TH>
+              <TH role="columnheader" class="tableRowMembershipStatus">Status</TH>
+            </tr>
+          </thead>
+          <tbody>
+            <TR>
+              <td class="tableRowMembershipPhoto"></td>
+              <td class="tableRowMembershipName"></td>
+              <td class="tableRowMembershipEmail"></td>
+              <td class="tableRowMembershipDOB"></td>
+              <td class="tableRowMembershipNumber"></td>
+              <td class="tableRowMembershipChangeStatus">
+                <input type="submit" value="PRACTISING" ontouchstart="" class="buttonChangeStatus" id="changeStatus">
+              </td>
+            </TR>
+          </tbody>
+        </table>
+      </div>
+      <div id="tabs-Applications">
+        <table id="table-Applications">
+          <thead>
+            <tr role="row">
+              <TH role="columnheader" class="tableRowApplicationName">Name</TH>
+              <TH role="columnheader" class="tableRowApplicationID">ID</TH>
+              <TH role="columnheader" class="tableRowApplicationEmail">Email</TH>
+              <TH role="columnheader" class="tableRowApplicationCreated">Created</TH>
+              <TH role="columnheader" class="tableRowApplicationLastAccess">Last Access</TH>
+              <TH role="columnheader" class="tableRowApplicationAnytime">Anytime Resources</TH>
+            </tr>
+          </thead>
+          <tbody>
+            <TR>
+              <td class="tableRowApplicationName"></td>
+              <td class="tableRowApplicationID"></td>
+              <td class="tableRowApplicationEmail"></td>
+              <td class="tableRowApplicationCreated"></td>
+              <td class="tableRowApplicationLastAccess"></td>
+              <td class="tableRowApplicationAnytime"></td>
+            </TR>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
 	</div>
 </section>
 
 <script type="text/javascript">
 
 function onReady() {
-
-  $('#logout').hide()
+  $('#tabs').tabs()
+  $('#table-Memberships').dataTable(
+    { 'bAutoWidth': true
+      ,'bLengthChange': false
+      ,'bFilter': false
+      ,'bSort': true
+      ,'bInfo': false
+      ,'bPaginate': false
+      ,'sScrollY': '400px'
+      ,'bScrollCollapse': true
+      } )
+  $.post( '/admin/memberships', null, function( data, status ) {
+    if ( status == 'success' && data && data.result ) {
+      $('#table-Memberships').dataTable().fnClearTable()
+      for (var i=0; i<data.result.length; i++) {
+        var row = data.result[i]
+        $('#table-Memberships').dataTable().fnAddData( row )
+      }
+      // GREG: need to turn first item into an image, and last item into a button so status can be changed
+    }
+  })
+  $('#table-Applications').dataTable(
+    { 'bAutoWidth': true
+      ,'bLengthChange': false
+      ,'bFilter': false
+      ,'bSort': true
+      ,'bInfo': false
+      ,'bPaginate': false
+      ,'sScrollY': '400px'
+      ,'bScrollCollapse': true
+      } )
+  $.post( '/admin/applications', null, function( data, status ) {
+    if ( status == 'success' && data && data.result ) {
+      $('#table-Applications').dataTable().fnClearTable()
+      for (var i=0; i<data.result.length; i++) {
+        var row = data.result[i]
+        $('#table-Applications').dataTable().fnAddData( row )
+      }
+    }
+  })
 
 } // onReady
 

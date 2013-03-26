@@ -171,11 +171,32 @@ exports.profile = function ( req, res )  {
 
 
 exports.status = function ( req, res )  {
-  // TBD
+console.log('\n status() body\n', req.body)
+
+  // DEVELOPMENT HACK
+  var status = req.body.status
+
+// save the status in the DB
+
+  req.session.profile.status = status
+  res.send( { result: { success: true } } )
 }
 
 exports.agreeTOS = function ( req, res )  {
-  // TBD
+
+console.log('\n agreeTOS() body\n', req.body)
+
+  // DEVELOPMENT HACK
+
+  var number = req.body.number
+  var status = 'PRACTISING'
+
+// save the number in the DB
+
+  req.session.profile.number = number
+  req.session.profile.status = status
+  res.send( { result: { success: true } } )
+
 }
 
 /*

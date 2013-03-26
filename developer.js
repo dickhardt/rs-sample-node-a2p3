@@ -152,25 +152,54 @@ exports.loginCheck = function ( req, res, next ) {
 }
 
 exports.newApp = function ( req, res, next ) {
-
+  // DEV HACK
+  res.send( { result: { success: true } } )
 }
 
 exports.appDetails = function ( req, res, next ) {
-
+  // DEV HACK
+  res.send(
+    { result:
+      { details:
+        { admins: { 'joe@example.com': "ACTIVE" }
+        , anytime: false
+        , keys:
+          { latest:
+            { kid: "oK6o7ijsTKLZS5QW"
+            , key: "aywnJkrllfp7wi8TMul-bXwTp4_WVHxHjG3X67-tHyRsfKoGJP5fvuwGMZtBOjuOd4jbLIG15NA44WCwtEP7oQ"
+            }
+          }
+        , name: "Sample App"
+        , email: "joe@example.com"
+        }
+      }
+    } )
 }
 
 exports.listApps = function ( req, res, next ) {
-
+  // DEV HACK
+  res.send(
+    { result:
+      { email: "joe@example.com"
+      , list:
+        { 'a2p3-sample.azurewebsites.net': "Sample App on Azure"
+        , 'sample-dickhardt.dotcloud.com': "Sample App"
+        }
+      }
+    } )
 }
 
 exports.deleteApp = function ( req, res, next ) {
+  next( new Error( "UNIMPLEMENTED" ))
 
 }
 
 exports.refreshKey = function ( req, res, next ) {
+  next( new Error( "UNIMPLEMENTED" ))
 
 }
 
 exports.getkey = function ( req, res, next ) {
+  next( new Error( "UNIMPLEMENTED" ))
 
 }

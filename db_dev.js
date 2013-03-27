@@ -166,9 +166,12 @@ exports.deleteProfile = function ( di, cb ) {
 
 // get all Users in system, return a set of rows
 exports.getUsers = function ( cb ) {
+
+debugger;
+
   var results = []
   Object.keys( dummyNoSql ).forEach( function ( key ) {
-    if ( key.startsWith('user:') ) {
+    if ( key.search(/^user/) === 0) {
       var di = key.replace('user:','')
       var row = []
       row.push( di )

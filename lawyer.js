@@ -8,6 +8,7 @@
 
 var a2p3 = require('a2p3')
   , common = require('./common')
+  , db = require('./db')
   // make sure you have created a config.json and vault.json per a2p3 documentation
   , config = require('./config.json')
   , vault = require('./vault.json')
@@ -26,19 +27,26 @@ function fetchProfile( agentRequest, ixToken, callback ) {
   var resource = new a2p3.Resource( config, vault )
   resource.exchange( agentRequest, ixToken, function ( error, di ) {
     if ( error ) return callback ( error )
-    resource.callMultiple( APIS, function ( error, results ) {
-      var profile
-      if (results) {
-        if (results['people.a2p3.net'] && results['people.a2p3.net'].redirects &&
-            results['people.a2p3.net'].redirects[0] && results[ results['people.a2p3.net'].redirects[0] ]) {
-          profile = results[ results['people.a2p3.net'].redirects[0] ]
-        } else return callback( new Error('No people.a2p3.net data'), null )
-        if ( results['email.a2p3.net'] && results['email.a2p3.net'].email )
-          profile.email = results['email.a2p3.net'].email
-        profile.di = di
+    db.getProfile( di, function ( e, profile ) {
+      if (!e && profile)
         return callback( null, profile )
-      }
-      callback( error, null )
+      // error likely is user not found, so let's go get their profile
+      // in a real system, we likely would get the user's profile anyway and update
+      // our records with any changes
+      resource.callMultiple( APIS, function ( error, results ) {
+        var profile
+        if (results) {
+          if (results['people.a2p3.net'] && results['people.a2p3.net'].redirects &&
+              results['people.a2p3.net'].redirects[0] && results[ results['people.a2p3.net'].redirects[0] ]) {
+            profile = results[ results['people.a2p3.net'].redirects[0] ]
+          } else return callback( new Error('No people.a2p3.net data'), null )
+          if ( results['email.a2p3.net'] && results['email.a2p3.net'].email )
+            profile.email = results['email.a2p3.net'].email
+          profile.di = di
+          return callback( null, profile )
+        }
+        callback( error, null )
+      })
     })
   })
 }
@@ -169,34 +177,44 @@ exports.profile = function ( req, res )  {
   }
 }
 
-
-exports.status = function ( req, res )  {
-console.log('\n status() body\n', req.body)
-
-  // DEVELOPMENT HACK
-  var status = req.body.status
-
-// save the status in the DB
-
-  req.session.profile.status = status
-  res.send( { result: { success: true } } )
+// returns appropriate redirect
+exports.accountDelete = function ( req, res, next )  {
+  var di = req.session.profile.di
+  req.session = null  // blow out session regardless
+  if (!di) return next( new Error('No DI in session profile') )
+  db.deleteProfile( di, function ( e ) {
+    if (e) return res.redirect('/error')
+    res.redirect('/')
+  })
 }
 
-exports.agreeTOS = function ( req, res )  {
+// update user status in DB
+exports.status = function ( req, res, next )  {
+  var di = req.session.profile.di
+  if (!di) return next( new Error('No DI in session profile') )
+  var status = req.body.status
+  if (!status) return next( new Error('No status passed in') )
+  if ( status != 'PRACTISING' || status != 'NON-PRACTISING' || status != 'RETIRED' )
+      return next( new Error('Invalid status') )
+  db.updateProfile( di, { status: status }, function ( e ) {
+    if (e) return next( e )
+    req.session.profile.status = status
+    res.send( { result: { success: true } } )
+  })
+}
 
-console.log('\n agreeTOS() body\n', req.body)
-
-  // DEVELOPMENT HACK
-
+// save user to DB
+exports.agreeTOS = function ( req, res, next )  {
+  var di = req.session.profile.di
+  if (!di) return next( new Error('No DI in session profile') )
   var number = req.body.number
-  var status = 'PRACTISING'
-
-// save the number in the DB
-
+  if (!number) return next( new Error('No number passed in') )
   req.session.profile.number = number
-  req.session.profile.status = status
-  res.send( { result: { success: true } } )
-
+  req.session.profile.status = 'PRACTISING'
+  db.updateProfile( di, req.session.profile, function ( e ) {
+    if (e) return next( e )
+    res.send( { result: { success: true } } )
+  })
 }
 
 /*

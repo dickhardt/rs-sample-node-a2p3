@@ -101,8 +101,11 @@ app.get('/logout', logout)
 // called if App and Agent are on same device
 app.get('/lawyer/login/direct', lawyer.loginDirect )
 app.get('/lawyer/response/redirect', lawyer.loginResponseRedirect )
+app.get('/lawyer/account/delete', lawyer.accountDelete )
+
 app.get('/developer/login/direct', developer.loginDirect )
 app.get('/developer/response/redirect', developer.loginResponseRedirect )
+
 app.get('/admin/login/direct', admin.loginDirect )
 app.get('/admin/response/redirect', admin.loginResponseRedirect )
 
@@ -111,11 +114,13 @@ app.post('/lawyer/response/callback', lawyer.loginResponseCallback )
 app.post('/developer/response/callback', developer.loginResponseCallback )
 app.post('/admin/response/callback', admin.loginResponseCallback )
 
+
+
 //
 // these endpoints serve static HTML pages
 //
 app.get('/',                sendfile( '/html/index.html' ) )
-app.get('/error',           sendfile( '/html/login_error.html' ) )
+app.get('/error',           sendfile( '/html/error.html' ) )
 app.get('/agent/install',   sendfile( '/html/agent_install.html' ) )
 
 app.get('/lawyer',          sendfile( '/html/lawyer.html' )  )

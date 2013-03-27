@@ -8,11 +8,11 @@
 
 var underscore = require('underscore')
   , identity = require('./identity')
-  , jwt = require('./jwt')
 
 
-// we only keep our database alive until we die
+// for development, we only keep our database alive until we die
 var dummyNoSql = {}
+var keyChain = {}
 
 /*
 *   Functions to create, get and delete Key Objects
@@ -21,21 +21,18 @@ var dummyNoSql = {}
 // generate new app keys and add to Vault
 function newKeyObj ( id, cb ) {
   var keyObj = identity.makeKeyObj()
-  keyChain[reg] = keyChain[reg] || {}
-  keyChain[reg][id] = keyObj
+  keyChain[id] = keyObj
   process.nextTick( function () { cb( null, keyObj ) } )
 }
 
 function getKeyObj ( id, cb ) {
-  var keyObj = null
-  if ( keyChain[reg] && keyChain[reg][id] )
-    keyObj = keyChain[reg][id]
+  var keyObj = keyChain[id]
   process.nextTick( function () { cb( null, keyObj ) } )
 }
 
 function deleteKeyObj ( id, cb ) {
-  if ( keyChain[reg] && keyChain[reg][id] )
-    delete keyChain[reg][id]
+  if ( keyChain[id] )
+    delete keyChain[id]
   process.nextTick( function () { cb( null ) } )
 }
 
@@ -91,7 +88,7 @@ exports.newApp = function ( id, name, adminEmail, cb ) {
   dummyNoSql['app:' + id + ':admins'] = {}
   dummyNoSql['app:' + id + ':admins'][adminEmail] = 'ACTIVE'
   dummyNoSql['admin:' + adminEmail + ':apps'] = dummyNoSql['admin:' + adminEmail + ':apps'] || {}
-  dummyNoSql['admin:' + adminEmail + ':apps'][id] = 'ACTIVE'
+  dummyNoSql['admin:' + adminEmail + ':apps'][id] = name
   // gen key pair
   newKeyObj( id, function ( e, keyObj ) {
     cb( e, keyObj )
@@ -167,9 +164,24 @@ exports.deleteProfile = function ( di, cb ) {
   process.nextTick( function () { cb( e ) } )
 }
 
-// get all Users in system
+// get all Users in system, return a set of rows
 exports.getUsers = function ( cb ) {
-  cb( new Error('UNIMPLEMENTED'))
+  var results = []
+  Object.keys( dummyNoSql ).forEach( function ( key ) {
+    if ( key.startsWith('user:') ) {
+      var di = key.replace('user:','')
+      var row = []
+      row.push( di )
+      row.push( dummyNoSql[key].photo )
+      row.push( dummyNoSql[key].name )
+      row.push( dummyNoSql[key].email )
+      row.push( dummyNoSql[key].dob )
+      row.push( dummyNoSql[key].number )
+      row.push( dummyNoSql[key].status )
+      results.push( row )
+    }
+  })
+  process.nextTick( function () { cb( null, results ) } )
 }
 
 
@@ -182,7 +194,7 @@ exports.getUsers = function ( cb ) {
 // TBD - update App Table with superset of type of access granted
 
 exports.oauthCreate = function ( details, cb) {
-  var accessToken = jwt.handle()
+  var accessToken = identity.handle()
   var appID = details.app
   var keyAccess = 'oauth:' + accessToken
   // NOTE: an App may have multiple Access Tokens, and with different priveleges

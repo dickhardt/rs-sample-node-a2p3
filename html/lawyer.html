@@ -12,6 +12,7 @@
 </head>
 <body>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
   <script src="/jquery.qrcode.min.js"></script>
 <header class="header">
 	<section class="headerContainer">
@@ -64,6 +65,11 @@
           <div id="membershipStatus"></div>
       </div>
       <a class="formItem" id="changeStatus" class="genericButton" href="">Change</a>
+      <!-- GREG: following button should be on right side and only shown if lawyer has enrolled, which this section is only shown -->
+
+      <div>
+        <a id="accountDelete" class="genericButton" href="">Delete Account</a>
+      </div>
     </div>
 
 
@@ -92,6 +98,17 @@
         </form>
     </div>
 
+    <div title="Confirm User Removal" name="userDeleteDialogConfirm"
+    id="userDeleteDialogConfirm" class="agentCLI" style="display: none;">
+
+      <div style="margin-top: 8px;" id="confirmUserDelete"
+      name="confirmUserDelete" class="dashboardCategoryTitleDetail">
+        Are
+        you sure you wish to remove this user?
+      </div>
+
+    </div>
+
 </section>
 
 
@@ -111,6 +128,7 @@ function onReady() {
   $('#enrollmentDescriptionSection').hide()
   $('#statusSection').hide()
   $('#updateStatus_form').hide()
+  $('#userDeleteDialogConfirm').hide()
 
   $('#hideDI').click( function () {
     $('#directedIdentifier').hide()
@@ -123,6 +141,32 @@ function onReady() {
     $('#showDI').hide()
     $('#hideDI').show()
     $('#directedIdentifier').show()
+    return false
+  })
+
+  $('#showDI').click( function () {
+    $('#showDI').hide()
+    $('#hideDI').show()
+    $('#directedIdentifier').show()
+    return false
+  })
+
+
+  $('#accountDelete').click(function() {
+
+    $("#userDeleteDialogConfirm").dialog({
+      width : 400,
+      buttons : {
+        "No" : function() {
+          $(this).dialog("close");
+        },
+
+        "Yes" : function() {
+          window.location = "/lawyer/account/delete";
+        }
+      }
+    });
+
     return false
   })
 

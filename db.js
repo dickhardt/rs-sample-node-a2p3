@@ -4,7 +4,11 @@
 * Copyright (C) Province of British Columbia, 2013
 */
 
-var config = require('./config')
+
+var db_dev = require('./db_dev')
+module.exports = db_dev
+
+//var config = require('./config')
 
 // if (!config.database) {
 //   var db_dev = require('./db_dev')

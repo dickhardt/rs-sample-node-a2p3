@@ -194,7 +194,7 @@ exports.status = function ( req, res, next )  {
   if (!di) return next( new Error('No DI in session profile') )
   var status = req.body.status
   if (!status) return next( new Error('No status passed in') )
-  if ( status != 'PRACTISING' || status != 'NON-PRACTISING' || status != 'RETIRED' )
+  if ( status != 'PRACTISING' && status != 'NON-PRACTISING' && status != 'RETIRED' )
       return next( new Error('Invalid status') )
   db.updateProfile( di, { status: status }, function ( e ) {
     if (e) return next( e )

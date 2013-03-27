@@ -146,31 +146,34 @@ exports.checkQR = function ( req, res, next ) {
 }
 
 var dummyMemberships =
-  [ [ 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Giacomo Guilizzoni', 'Giacomo@example.com', 'Jan 01 1960', '0123456700', 'PRACTISING' ]
-  , [ 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Marco Botton', 'Marco@example.com', 'Jan 01 1960', '0123456711', 'NON-PRACTISING' ]
-  , [ 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Mariah Maclachlan', 'Mariah@example.com', 'Jan 01 1960', '0123456799', 'RETIRED' ]
-  , [ 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Valerie Liberty', 'Valerie@example.com', 'Jan 01 1960', '0123456722', 'PRACTISING' ]
-  , [ 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Guido Jack Guilizzoni', 'Guido@example.com', 'Jan 01 1960', '0123456777', 'NON-PRACTISING' ]
+  [ [ 12345678901, 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Giacomo Guilizzoni', 'Giacomo@example.com', 'Jan 1, 1960', '0123456700', 'PRACTISING' ]
+  , [ 12345678902, 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Marco Botton', 'Marco@example.com', 'Jan 1, 1960', '0123456711', 'NON-PRACTISING' ]
+  , [ 12345678903, 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Mariah Maclachlan', 'Mariah@example.com', 'Jan 1, 1960', '0123456799', 'RETIRED' ]
+  , [ 12345678904, 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Valerie Liberty', 'Valerie@example.com', 'Jan 1, 1960', '0123456722', 'PRACTISING' ]
+  , [ 12345678905, 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Guido Jack Guilizzoni', 'Guido@example.com', 'Jan 1, 1960', '0123456777', 'NON-PRACTISING' ]
   ]
 
 var dummyApplications =
-  [ [ 'Sample1 App', 'sample.example.com', 'fred@example.com', 'Jan 05 2013', 'two days ago', 'none' ]
-  , [ 'Sample2 App', 'sample.example.com', 'fred@example.com', 'Jan 04 2013', 'two days ago', 'status' ]
-  , [ 'Sample3 App', 'sample.example.com', 'fred@example.com', 'Jan 23 2013', 'two days ago', 'number' ]
-  , [ 'Sample4 App', 'sample.example.com', 'fred@example.com', 'Jan 15 2013', 'two days ago', 'status, number' ]
-  , [ 'Sample5 App', 'sample.example.com', 'fred@example.com', 'Jan 04 2013', 'two days ago', 'status, number' ]
-  , [ 'Sample6 App', 'sample.example.com', 'fred@example.com', 'Jan 01 2013', 'two days ago', 'none' ]
+  [ [ 'Sample1 App', 'sample1.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'none' ]
+  , [ 'Sample2 App', 'sample2.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'status' ]
+  , [ 'Sample3 App', 'sample3.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'number' ]
+  , [ 'Sample4 App', 'sample4.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'status, number' ]
+  , [ 'Sample5 App', 'sample5.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'status, number' ]
+  , [ 'Sample6 App', 'sample6.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'none' ]
   ]
 
 exports.memberships = function  ( req, res ) {
+// TBD: DEVELOPMENT TESTING
   res.send( { result: dummyMemberships } )
 }
 
 exports.membershipStatus = function  ( req, res ) {
-
+// TBD: DEVELOPMENT TESTING
+  return res.send( { status: 'success'} )
 }
 
 exports.applications = function  ( req, res ) {
+  // TBD: DEVELOPMENT TESTING
   res.send( { result: dummyApplications } )
 }
 

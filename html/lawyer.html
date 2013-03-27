@@ -53,7 +53,7 @@
       <div class="formItemWrap">
         <span class="formItemTitle">Law Society Membership Number</span> <span
           class="formItem"> <input type="text" id="membershipNumber_input"
-          placeholder="XXXXXXXX" class="textMembershipNumber" name="number">
+          placeholder="XXX-XXX" class="textMembershipNumber" name="number">
         </span>
       </div>
     </div>
@@ -145,6 +145,7 @@ function onReady() {
     })
     $('#profileSection').show()
     if ( !profile.status ) {  // need to enroll and agree to TOS
+      $('#membershipNumber_input').val( Math.floor( Math.random() * 899 + 100 ) + '-' + Math.floor( Math.random() * 899 + 100 ) )
       $('#enrollmentDescriptionSection').show()
       $('#enrollmentSection').show()
       $('#cancel').show()

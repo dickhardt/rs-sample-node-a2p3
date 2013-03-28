@@ -3,12 +3,14 @@
 <head>
 	<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,user-scalable=yes">
 	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css">
 	<title>Law Society Sample</title>
 </head>
 <body>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
   <script type="text/javascript" src="/jquery.qrcode.min.js"></script>
-
+  <script type="text/javascript" src="//code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+		
 	<header class="header">
 		<section class="headerContainer">
 			<div class="mainTitle">Law Society</div>
@@ -21,25 +23,65 @@
 			<div class="mainContentDoubleWrap">
 				<p class="mainContentSubTitle" id="subTitle">
           As a user, this site allows you to enroll yourself as a "lawyer" so that you can provide your "Law Society" membership status to other applications.
-          <br>
-          As a developer, you can register your App so that you can request various <a href="/documentation">attributes</a> about a user.
-          <br>
+          <br><br>
+          As a developer, you can register your App so that you can request various <a class="otherLinks" href="/documentation">attributes</a> about a user.
+          <br><br>
           If you are one of the site administrators, you can review membership and registered Apps.
+          <br><br>
         </p>
 			</div>
-      <a class="genericButton" href="" id="loginLawyer" class="loginItem">&nbsp;&nbsp;Lawyers&nbsp;&nbsp;</a>
-      <a class="genericButton" href="" id="loginDeveloper" class="loginItem">&nbsp;&nbsp;Developers&nbsp;&nbsp;</a>
-      <a class="genericButton" href="" id="loginAdmin" class="loginItem">&nbsp;&nbsp;Administrators&nbsp;&nbsp;</a>
-			<div id="qrcodeForm">
-	    	<p>Scan QR Code with your Agent to login</p>
-    	<div id="qrcode"></div>
-			</div>
-			<br><Br>
-		</div>
-
+      <a class="genericButton" href="" id="loginLawyer" class="loginItem">Lawyers</a>
+      <a class="genericButton" href="" id="loginDeveloper" class="loginItem">Developers</a>
+      <a class="genericButton" href="" id="loginAdmin" class="loginItem">Administrators</a>
+	
 	</section>
 
+	<div title="Scan the QR Code with your Personal Agent" id="qrcodeForm">
+		<div style="text-align: center;" id="qrcode"></div>
+	</div>
+
 <script type="text/javascript">
+/*
+ * Common utility to canculate width and height of the qr code.
+ * Depends on jquery.  Returns a minimum of 120 if browser is too small and
+ * a maximum of 400 as to not make the person lean back in their chair.
+ */
+function getQRCodeSize () {
+	var height = $(document).height(); 
+	var width = $(document).width();
+
+	var max = Math.min(height, width, 400 + 120);
+	
+	return Math.max(max - 120, 120);
+}
+
+/* 
+ * A common utility to determine how to render the QR code.  Preferred canvas because
+ * of quirks in Chrome table rendering.  Tables are used for unsupported canvas HTML5 
+ * tag.
+ */
+function getQRCodeRenderType () {
+	var canvasSupported = !!window.HTMLCanvasElement;
+	if (canvasSupported) {
+		return "canvas" 
+	} else {
+		return "table";
+	}
+}
+
+/* 
+ * A common utility to determine how to render the QR code.  Preferred canvas because
+ * of quirks in Chrome table rendering.  Tables are used for unsupported canvas HTML5 
+ * tag.
+ */
+function getQRCodeRenderType () {
+	var canvasSupported = !!window.HTMLCanvasElement;
+	if (canvasSupported) {
+		return "canvas" 
+	} else {
+		return "table";
+	}
+}
 
 function onReady() {
 
@@ -81,10 +123,13 @@ function onReady() {
       } else {  // put up QR code
         $.post( '/'+type+'/login/QR', function ( data, status ) {
           if (status == "success" && !data.error && data.result && data.result.qrURL && data.result.qrSession ) {
-            $('#qrcode').empty()
-            $('#qrcodeForm').fadeIn('fast')
-            $('#qrcode').qrcode( {width: 400, height: 400, text: data.result.qrURL, render: 'table' } )
-            $('#qrcode').css({cursor: 'none'});
+			$('#qrcode').empty()
+			$('#qrcodeForm').dialog({
+			  	width : getQRCodeSize() + 35,
+			   	height : getQRCodeSize() + 80
+			});
+          	$('#qrcode').qrcode( {width: getQRCodeSize(), height: getQRCodeSize(), text: data.result.qrURL, render: getQRCodeRenderType() } )
+          	$('#qrcode').css({cursor: 'none'});
             cycles = 0
             setTimeout( function () { checkQR( data.result.qrSession ) }, 500 )
           }

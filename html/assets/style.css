@@ -29,9 +29,7 @@
 
 .loginStatus {text-align:right;}
   .loginItem {padding-left: 5px;}
-  #qrcodeForm{border:1px solid #999; -webkit-box-shadow: 0px 0px 6px #CCC; background-color:#FFF; width:400px; height:470px; position: absolute; top:25px; left:10%; margin-left:-50px; padding:10px; border-radius:4px;z-index: 2;}
-  #notificationPopup{border:1px solid #999; -webkit-box-shadow: 0px 0px 6px #CCC; background-color:#FFF; width:300px; height:75px; position: absolute; top:20%px; left:20%; margin-left:-50px; padding:10px; border-radius:4px;z-index: 1;}
-
+  
 footer,header,section {
 	display: block;
 }
@@ -274,7 +272,7 @@ body img[height="1"] {
 
 .mainContent {
 	height: 100%;
-	background: rgb(173, 168, 137);
+	background: #ADB4C4;
 	padding-bottom: 20px;
 }
 
@@ -312,7 +310,7 @@ body img[height="1"] {
 	font-size: 15px;
 }
 
-.genericButton
+.genericButton, .genericSmallButton
 	{
 	background: none;
 	border: none;
@@ -334,8 +332,6 @@ body img[height="1"] {
 		rgba(27, 116, 170, 1) 100% );
 	background: linear-gradient(top, rgba(30, 130, 190, 1) 0%,
 		rgba(27, 116, 170, 1) 100% );
-	height: 44px;
-	width: 94px;
 	color: #fff;
 	font-size: 18px;
 	text-shadow: 0 1px 1px rgba(0, 0, 0, .5);
@@ -349,7 +345,7 @@ body img[height="1"] {
 	padding: 8px;
 }
 
-.genericButton:visited {
+.genericButton:visited, .genericSmallButton:visited {
 	color: #fff;
 }
 
@@ -389,7 +385,7 @@ body img[height="1"] {
 	line-height: 44px;
 }
 
-.genericButton:hover
+.genericButton:hover, .genericSmallButton:hover
 	{
 	background: rgb(63, 164, 239);
 	background: -moz-linear-gradient(top, rgba(63, 164, 239, 1) 0%,
@@ -406,7 +402,7 @@ body img[height="1"] {
 		rgba(16, 116, 190, 1) 100% );
 }
 
-.genericButton:active
+.genericButton:active, .genericSmallButton:active
 	{
 	background: rgb(30, 86, 190);
 	background: -moz-linear-gradient(top, rgba(27, 116, 170, 1) 0%,
@@ -421,6 +417,26 @@ body img[height="1"] {
 		rgba(30, 86, 190, 1) 100% );
 	background: linear-gradient(top, rgba(27, 116, 170, 1) 0%,
 		rgba(30, 86, 190, 1) 100% );
+}
+
+.genericSmallButton {
+	font-size: 14px;
+	height: 25px;
+}
+
+.genericTitle {
+	font-family: 'Century Gothic';
+	color: #000000;
+	font-size: 18px;
+	font-weight: bold;
+	outline: none;
+	margin-bottom: 10px;
+}
+
+.di {
+	text-align:right;
+	float: right;
+	margin-top: -20px;
 }
 
 /*For screens with max width of 980px */
@@ -544,4 +560,31 @@ body img[height="1"] {
 	.footer p {
 		text-align: center;
 	}
+}
+
+.otherLinks {
+	text-decoration: underline;
+	color: #000000;
+}
+
+.ui-widget-header {
+	background: none !important;
+}
+
+.dashboardSection, .genericSection {
+	border-radius: 6px;
+	margin-top: 10px;
+	padding: 10px;
+	margin-right: 10px;
+	background-color: #E9E8E8;
+}
+
+.appsTableWrapper {
+	margin: 10px;
+	margin-bottom: 0px;
+	border: 1px solid #959595;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border: 1px solid #959595;
 }

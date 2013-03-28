@@ -41,6 +41,8 @@ function deleteKeyObj ( id, cb ) {
 * General App Registration Functions
 */
 
+
+// *** will not need this with new API
 // called when an admin logs in to link email with DI
 exports.registerAdmin = function ( adminEmail, di, cb ) {
   dummyNoSql['admin:' + adminEmail + ':di'] = di
@@ -49,15 +51,11 @@ exports.registerAdmin = function ( adminEmail, di, cb ) {
 }
 
 exports.listApps = function ( admin, cb ) {
+
+// call Registrar to get list
+
   var apps = dummyNoSql['admin:' + admin + ':apps']
-  var result = {}
-  if (apps) {
-    Object.keys(apps).forEach( function (id) {
-      result[id] =
-        { name: dummyNoSql['app:' + id + ':name'] }
-    })
-  }
-  process.nextTick( function () { cb( null, result ) } )
+  process.nextTick( function () { cb( null, apps ) } )
 }
 
 exports.appDetails = function ( admin, id, cb ) {
@@ -68,25 +66,32 @@ exports.appDetails = function ( admin, id, cb ) {
   }
   getKeyObj( id, function ( e, keys ) {
     if (e) return cb( e )
-    var result =
-      { name: dummyNoSql['app:' + id + ':name']
-      , admins: dummyNoSql['app:' + id + ':admins']
-      , keys: keys
-      }
+    var result = dummyNoSql['app:' + id]
+    result.admins = dummyNoSql['appAdmins:' + id] // *** call Registrar to get list
+    result.keys = keys
     process.nextTick( function () { cb( null, result ) } )
   })
 }
 
 exports.newApp = function ( id, name, adminEmail, cb ) {
-  if ( dummyNoSql['app:' + id + ':name'] ) {
+  if ( dummyNoSql['app:' + id] ) {
     var err = new Error('"'+ id + '" already registered')
     err.code = 'APP_ID_ALREADY_REGISTERED'
     return process.nextTick( function () { cb( err ) } )
   }
   // add to DB
-  dummyNoSql['app:' + id + ':name'] = name
-  dummyNoSql['app:' + id + ':admins'] = {}
-  dummyNoSql['app:' + id + ':admins'][adminEmail] = 'ACTIVE'
+  dummyNoSql['app:' + id] =
+    { name: name
+    , adminCreated: adminEmail
+    , created: Date.now().toString()
+    , lastAccess: 'never accessed'
+    , anytimeNumber: false
+    , anytimeStatus: false
+    }
+
+  // these all go away with the new API
+  dummyNoSql['appAdmins:' + id] = {}
+  dummyNoSql['appAdmins:' + id][adminEmail] = 'ACTIVE'
   dummyNoSql['admin:' + adminEmail + ':apps'] = dummyNoSql['admin:' + adminEmail + ':apps'] || {}
   dummyNoSql['admin:' + adminEmail + ':apps'][id] = name
   // gen key pair
@@ -97,9 +102,12 @@ exports.newApp = function ( id, name, adminEmail, cb ) {
 
 
 exports.deleteApp = function ( id, cb ) {
-  delete dummyNoSql['app:' + id + ':name']
+  delete dummyNoSql['app:' + id]
   deleteKeyObj( id, function ( e ) {
-    var admins = Object.keys( dummyNoSql['app:' + id + ':admins'] )
+
+// these steps are not needed with new Registrar API
+
+    var admins = Object.keys( dummyNoSql['appAdmins:' + id] )
     admins.forEach( function (admin) {
       delete dummyNoSql['admin:' + admin + ':apps'][id]
     })
@@ -123,10 +131,26 @@ exports.getAppKey = function ( id, vaultKeys, cb ) {
 
 // get all Apps in system
 exports.getApps = function ( cb ) {
-  cb( new Error('UNIMPLEMENTED'))
+  var results = []
+  Object.keys( dummyNoSql ).forEach( function ( key ) {
+    if ( key.search(/^app:/) === 0) {
+      var row = []
+      row.push( dummyNoSql[key].name )
+      var id = key.replace('app:','')
+      row.push( id )
+      row.push( dummyNoSql[key].adminCreated )
+      row.push( dummyNoSql[key].created )
+      row.push( dummyNoSql[key].lastAccess )
+      var anytime = ''
+      if (dummyNoSql[key].anytimeNumber) anytime = 'number '
+      if (dummyNoSql[key].anytimeStatus) anytime += 'status'
+      if (anytime === '') anytime = 'none'
+      row.push( anytime )
+      results.push( row )
+    }
+  })
+  process.nextTick( function () { cb( null, results ) } )
 }
-
-
 
 
 /*
@@ -204,6 +228,13 @@ exports.oauthCreate = function ( details, cb) {
   var keyDI = 'oauthGrants:' + details.sub
   dummyNoSql[keyDI] = dummyNoSql[keyDI] || {}
   dummyNoSql[keyDI][accessToken] = appID
+
+  // flip appropriate flag for scopes(s) requested
+  if ( details.scopes.indexOf('http://law.a2p3.net/scope/anytime/number') != -1 )
+    dummyNoSql['app:' + appID].anytimeNumber = true
+  if ( details.scopes.indexOf('http://law.a2p3.net/scope/anytime/status') != -1 )
+    dummyNoSql['app:' + appID].anytimeStatus = true
+
   process.nextTick( function () { cb( null, accessToken ) } )
 }
 
@@ -221,7 +252,7 @@ exports.oauthRetrieve = function ( accessToken, cb ) {
   // we want to send current state of details so that
   // we know last time was accessed
   var details = JSON.parse( JSON.stringify( dummyNoSql[keyAccess] ) ) // clone object
-  dummyNoSql[keyAccess].lastAccess = Date.now()
+  dummyNoSql['app:' + details.app].lastAccess = dummyNoSql[keyAccess].lastAccess = Date.now()
   process.nextTick( function () { cb( null, details ) } )
 }
 

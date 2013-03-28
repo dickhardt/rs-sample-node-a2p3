@@ -139,7 +139,7 @@ app.post('/dashboard/app/details',  developer.appDetails )
 app.post('/dashboard/list/apps',    developer.listApps )
 app.post('/dashboard/delete/app',   developer.deleteApp )
 app.post('/dashboard/refresh/key',  developer.refreshKey )
-app.post('/dashboard/getkey',       developer.getkey )
+app.post('/dashboard/getkey',       developer.getKey )
 
 // admin APIs
 app.post('/admin/memberships', admin.memberships )

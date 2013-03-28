@@ -171,14 +171,14 @@ db.updateProfile( "w4rDoV7DhyZzwrTCv8K2McK2wrATXEhfDDkZZQ", testProfile, functio
 //   , [ 12345678905, 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Guido Jack Guilizzoni', 'Guido@example.com', 'Jan 1, 1960', '0123456777', 'NON-PRACTISING' ]
 //   ]
 
-var dummyApplications =
-  [ [ 'Sample1 App', 'sample1.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'none' ]
-  , [ 'Sample2 App', 'sample2.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'status' ]
-  , [ 'Sample3 App', 'sample3.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'number' ]
-  , [ 'Sample4 App', 'sample4.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'status, number' ]
-  , [ 'Sample5 App', 'sample5.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'status, number' ]
-  , [ 'Sample6 App', 'sample6.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'none' ]
-  ]
+// var dummyApplications =
+//   [ [ 'Sample1 App', 'sample1.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'none' ]
+//   , [ 'Sample2 App', 'sample2.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'status' ]
+//   , [ 'Sample3 App', 'sample3.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'number' ]
+//   , [ 'Sample4 App', 'sample4.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'status, number' ]
+//   , [ 'Sample5 App', 'sample5.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'status, number' ]
+//   , [ 'Sample6 App', 'sample6.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'none' ]
+//   ]
 
 exports.memberships = function  ( req, res, next ) {
   db.getUsers( function ( e, profiles ) {
@@ -202,9 +202,11 @@ exports.membershipStatus = function  ( req, res, next ) {
 }
 
 
-exports.applications = function  ( req, res ) {
-  // TBD: DEVELOPMENT TESTING
-  res.send( { result: dummyApplications } )
+exports.applications = function  ( req, res, next ) {
+  db.getApps( function ( e, apps ) {
+    if ( e ) return next( e )
+    res.send( { result: apps } )
+  })
 }
 
 /*

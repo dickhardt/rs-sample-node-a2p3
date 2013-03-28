@@ -3,12 +3,12 @@
 <head>
 <style type="text/css">
   .loginStatus {text-align:center;}
-  .di {text-align:right;}
-    #updateStatus_form{border:1px solid #999; -webkit-box-shadow: 0px 0px 6px #CCC; background-color:#FFF; width:250px; height:160px; position: absolute; top:400px; left:25%; margin-left:-125px; padding:10px; border-radius:4px;}
+    #updateStatus_form{border:1px solid #999; -webkit-box-shadow: 0px 0px 6px #CCC; background-color:#FFF; position: absolute; top:400px; left:25%; margin-left:-125px; padding:10px; border-radius:4px;}
 </style>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,user-scalable=no">
 	<link rel="stylesheet" href="/style.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css">
 </head>
 <body>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -23,17 +23,18 @@
 
 <section class="mainContent">
 	<div class="mainContentWrap">
-		<div class="di">
-		  <div id="directedIdentifier"></div>
+		<br>
+		<div style="float: right" class="loginStatus">
+		  <a href="/logout" id="logout" class="genericButton">Logout</a>
+		</div>
+		
+		<div style="" class="di">
+	      <br>
+		  <span id="directedIdentifier"></span>
 		  <a class="otherLinks" href="" id="showDI">show DI</a>
 		  <a class="otherLinks" href="" id="hideDI">hide DI</a>
 		</div>
-		<br><br>
-		<div class="loginStatus">
-		  <a href="/logout" id="logout" class="genericButton">Logout</a>
-		  <a href="/logout" id="cancel" class="genericButton">Cancel</a>
-		</div>
-		<br><br>
+	
 		<div id="profileSection" class="genericSection">
 			<p class="categoryTitle">Profile</p>
 			<table id="profileTable" class=""> </table>
@@ -50,12 +51,11 @@
     <div id="enrollmentSection" class="enrollSection">
       <div class="categoryTitle">Membership Verification
       </div>
-      <div class="categoryTitleDetail">Please set a ficticious value to simulate a membership number.</div>
+      <p>Please set a ficticious value to simulate a membership number.</p>
       <div class="formItemWrap">
-        <span class="formItemTitle">Law Society Membership Number</span> <span
-          class="formItem"> <input type="text" id="membershipNumber_input"
+        <span class="genericLabel" style="text-align: left;">Law Society Membership Number</span>
+          <input type="text" id="membershipNumber_input"
           placeholder="XXX-XXX" class="textMembershipNumber" name="number">
-        </span>
       </div>
     </div>
 
@@ -63,13 +63,10 @@
       <div class="categoryTitle">Membership Status
         <p>
           <div id="membershipStatus"></div>
+        </p>
       </div>
-      <a class="formItem" id="changeStatus" class="genericButton" href="">Change</a>
-      <!-- GREG: following button should be on right side and only shown if lawyer has enrolled, which this section is only shown -->
-
-      <div>
-        <a id="accountDelete" class="genericButton" href="">Delete Account</a>
-      </div>
+      <a id="changeStatus" class="genericButton" href="">Change Status</a>
+	  <a id="accountDelete" class="genericButton" href="">Delete Account</a>
     </div>
 
 
@@ -80,6 +77,7 @@
 			  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 			</p>
 			<p align="right">
+				 <a href="/logout" id="cancel" class="genericButton">Cancel</a>
 				<a class="genericButton" href="" id="agreeTOS">I Agree</a>
 			</p>
 		</div>
@@ -88,10 +86,11 @@
     <div id="updateStatus_form">
       <div class="genericTitle">Update Membership Status</div>
         <form id="updateStatus_input">
-          <input type="radio" name="status" value="PRACTISING" id="PRACTISING"> PRACTISING<br>
-          <input type="radio" name="status" value="NON-PRACTISING" id="NON-PRACTISING"> NON-PRACTISING<br>
-          <input type="radio" name="status" value="RETIRED" id="RETIRED"> RETIRED<br>
-
+          <div style="padding-left: 10px;">
+	          <input type="radio" name="status" value="PRACTISING" id="PRACTISING"><label for="PRACTISING"> PRACTISING</label><br>
+	          <input type="radio" name="status" value="NON-PRACTISING" id="NON-PRACTISING"><label for="NON-PRACTISING"> NON-PRACTISING</label><br>
+	          <input type="radio" name="status" value="RETIRED" id="RETIRED"><label for="RETIRED"> RETIRED</label><br>
+		  </div>
             <p><input class="genericButton" id="updateStatusCancel" type="button" value="CANCEL">
                 <input class="genericButton" id="updateStatusSubmit" type="button" value="UPDATE">
               </p>
@@ -99,14 +98,12 @@
     </div>
 
     <div title="Confirm User Removal" name="userDeleteDialogConfirm"
-    id="userDeleteDialogConfirm" class="agentCLI" style="display: none;">
+    	id="userDeleteDialogConfirm">
 
       <div style="margin-top: 8px;" id="confirmUserDelete"
       name="confirmUserDelete" class="dashboardCategoryTitleDetail">
-        Are
-        you sure you wish to remove this user?
+        Are you sure you wish to remove this user?
       </div>
-
     </div>
 
 </section>

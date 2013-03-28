@@ -310,7 +310,7 @@ body img[height="1"] {
 	font-size: 15px;
 }
 
-.genericButton
+.genericButton, .genericSmallButton
 	{
 	background: none;
 	border: none;
@@ -345,7 +345,7 @@ body img[height="1"] {
 	padding: 8px;
 }
 
-.genericButton:visited {
+.genericButton:visited, .genericSmallButton:visited {
 	color: #fff;
 }
 
@@ -385,7 +385,7 @@ body img[height="1"] {
 	line-height: 44px;
 }
 
-.genericButton:hover
+.genericButton:hover, .genericSmallButton:hover
 	{
 	background: rgb(63, 164, 239);
 	background: -moz-linear-gradient(top, rgba(63, 164, 239, 1) 0%,
@@ -402,7 +402,7 @@ body img[height="1"] {
 		rgba(16, 116, 190, 1) 100% );
 }
 
-.genericButton:active
+.genericButton:active, .genericSmallButton:active
 	{
 	background: rgb(30, 86, 190);
 	background: -moz-linear-gradient(top, rgba(27, 116, 170, 1) 0%,
@@ -417,6 +417,11 @@ body img[height="1"] {
 		rgba(30, 86, 190, 1) 100% );
 	background: linear-gradient(top, rgba(27, 116, 170, 1) 0%,
 		rgba(30, 86, 190, 1) 100% );
+}
+
+.genericSmallButton {
+	font-size: 14px;
+	height: 25px;
 }
 
 .genericTitle {

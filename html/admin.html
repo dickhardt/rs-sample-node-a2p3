@@ -25,20 +25,22 @@
 </header>
 
 <section class="mainContent">
-      <a href="/logout" id="logout" class="genericButton">logout </a>
+    
 
 	<div class="mainContentWrap">
-
+	<a style="float:right; z-index: 1;" href="/logout" id="logout" class="genericButton">logout </a>
+    <br><BR><BR>
+    <div>
     <div id="tabs">
       <ul>
         <li><a href="#tabs-Memberships">Memberships</a></li>
         <li><a href="#tabs-Applications">Applications</a></li>
       </ul>
-      <div id="tabs-Memberships">
-        <table id="table-Memberships">
+      <div id="tabs-Memberships" >
+        <table id="table-Memberships" >
           <thead>
             <tr role="row">
-              <TH role="columnheader" class="tableRowMembershipPhoto">Photo</TH>
+              <TH width="48px" role="columnheader" class="tableRowMembershipPhoto">Photo</TH>
               <TH role="columnheader" class="tableRowMembershipName">Name</TH>
               <TH role="columnheader" class="tableRowMembershipEmail">Email</TH>
               <TH role="columnheader" class="tableRowMembershipDOB">Date of Birth</TH>
@@ -85,16 +87,18 @@
         </table>
       </div>
     </div>
+    </div>
 
 	</div>
 
     <div id="updateStatus_form">
       <div class="genericTitle">Update Membership Status</div>
         <form id="updateStatus_input">
-          <input type="radio" name="status" value="PRACTISING" id="PRACTISING"> PRACTISING<br>
-          <input type="radio" name="status" value="NON-PRACTISING" id="NON-PRACTISING"> NON-PRACTISING<br>
-          <input type="radio" name="status" value="RETIRED" id="RETIRED"> RETIRED<br>
-
+        	<div style="padding-left:10px;">
+	          <input type="radio" name="status" value="PRACTISING" id="PRACTISING"><label for="PRACTISING"> PRACTISING</label><br>
+	          <input type="radio" name="status" value="NON-PRACTISING" id="NON-PRACTISING"><label for="NON-PRACTISING"> NON-PRACTISING</label><br>
+	          <input type="radio" name="status" value="RETIRED" id="RETIRED"><label for="RETIRED"> RETIRED</label><br>
+			</div>
             <p><input class="genericButton" id="updateStatusCancel" type="button" value="CANCEL">
                 <input class="genericButton" id="updateStatusSubmit" type="button" value="UPDATE">
               </p>
@@ -136,11 +140,16 @@ function onReady() {
       ,'bSort': true
       ,'bInfo': false
       ,'bPaginate': false
-      ,'sScrollY': '400px'
       ,'bScrollCollapse': true
+      ,'aoColumns': [
+      { "bSortable": false },
+      null,
+      null,
+      null,
+      null,
+      null,
+      { "bSortable": false }]
       } )
-
-      // GREG: disable sort on photos and on link to change status
 
 
   $.ajaxSetup(
@@ -155,13 +164,12 @@ function onReady() {
         var row = data.result[i]
         var di = row.shift()
         var status = row[ row.length - 1 ]
-        row.push('<a href="" id="'+di+'">update</a>')
+        row.push('<a class="genericSmallButton" href="" id="'+di+'">update</a>')
         var url = row.shift()
-        row.unshift('<img src="'+url+'">')
+        row.unshift('<img class="photoImage" src="'+url+'">')
         $('#table-Memberships').dataTable().fnAddData( row )
         $('#'+di).click( showUpdateStatus( di, status ) )
       }
-      // GREG: need to turn first item into an image, and last item into a button so status can be changed
     }
   })
   $('#table-Applications').dataTable(
@@ -171,7 +179,6 @@ function onReady() {
       ,'bSort': true
       ,'bInfo': false
       ,'bPaginate': false
-      ,'sScrollY': '400px'
       ,'bScrollCollapse': true
       } )
   $.post( '/admin/applications', null, function( data, status ) {

@@ -1,7 +1,5 @@
 /*
-* api.test.js
-*
-* Sample App test suite
+* test.js - tests for RS Sample
 *
 * Copyright (C) Province of British Columbia, 2013
 */
@@ -17,6 +15,43 @@ var should = require('chai').should()
 var HOST_PORT = 8080
   , HOST_URL = 'http://localhost' + ':' + HOST_PORT       // http://example.a2p3.com'
   , SETUP_URL = 'http://setup.a2p3.net'
+
+
+/*
+*   Lawyer tests
+*   login, accept TOS, get profile page, check membership number, logout
+*   login, check on profile page, change status to non-practising, logout
+*/
+
+
+/*
+*   Developer tests
+*   login, register testApp (must be one that is already registered)
+*   get keys
+*   refresh keys, and save for later
+*   logout
+*   login, check app is listed, logout
+*/
+
+/*
+*   Admin tests
+*   login (account must be admin on Registrar)
+*   check user is listed in memberships, change status to practising
+*   check app is listed in applications
+*   logout
+*/
+
+/*
+*   Resource tests
+*   request number and make API call to number and status (fail)
+*   repeat for status
+*   repeat for anytime number, oauth token
+*   repeat for anytime status, oauth token
+*   login as admin and check app status is updated with access and anytime requests
+*   revoke anytime access to app
+*   make API call and confirm failure
+*/
+
 
 describe('Testing Sample App ', function () {
   var agentRequest = null

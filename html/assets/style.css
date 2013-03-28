@@ -565,3 +565,21 @@ body img[height="1"] {
 .ui-widget-header {
 	background: none !important;
 }
+
+.dashboardSection, .genericSection {
+	border-radius: 6px;
+	margin-top: 10px;
+	padding: 10px;
+	margin-right: 10px;
+	background-color: #E9E8E8;
+}
+
+.appsTableWrapper {
+	margin: 10px;
+	margin-bottom: 0px;
+	border: 1px solid #959595;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border: 1px solid #959595;
+}

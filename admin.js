@@ -53,8 +53,12 @@ exports.loginDirect = function ( req, res ) {
     }
     , agentRequest = a2p3.createAgentRequest( config, vault, params )
     , redirectURL = 'a2p3.net://token?request=' + agentRequest
-    , html = common.metaRedirectInfoPage( redirectURL )
-  res.send( html )
+  if (req.query && req.query.json) {  // client wants JSON,
+    return res.send( { result: {'request': redirectURL } } )
+  } else {
+    var html = common.metaRedirectInfoPage( redirectURL )
+    return res.send( html )
+  }
 }
 
 
@@ -146,22 +150,22 @@ exports.checkQR = function ( req, res, next ) {
   })
 }
 
-var testProfile =
-  { address1: "100 Main Street"
-  , address2: "Suite 1000"
-  , city: "Anyville"
-  , di: "w4rDoV7DhyZzwrTCv8K2McK2wrATXEhfDDkZZQ"
-  , dob: "May 28, 1963"
-  , email: "dick@blame.ca"
-  , name: "Dick Hardt"
-  , number: "702-394"
-  , photo: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg"
-  , postal: "U1U 1A1"
-  , province: "BC"
-  , status: "PRACTISING"
-  }
+// var testProfile =
+//   { address1: "100 Main Street"
+//   , address2: "Suite 1000"
+//   , city: "Anyville"
+//   , di: "w4rDoV7DhyZzwrTCv8K2McK2wrATXEhfDDkZZQ"
+//   , dob: "May 28, 1963"
+//   , email: "dick@blame.ca"
+//   , name: "Dick Hardt"
+//   , number: "702-394"
+//   , photo: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg"
+//   , postal: "U1U 1A1"
+//   , province: "BC"
+//   , status: "PRACTISING"
+//   }
 
-db.updateProfile( "w4rDoV7DhyZzwrTCv8K2McK2wrATXEhfDDkZZQ", testProfile, function( e ) { console.log('\n updateProfile returned',e)} )
+// db.updateProfile( "w4rDoV7DhyZzwrTCv8K2McK2wrATXEhfDDkZZQ", testProfile, function( e ) { console.log('\n updateProfile returned',e)} )
 
 // var dummyMemberships =
 //   [ [ 12345678901, 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Giacomo Guilizzoni', 'Giacomo@example.com', 'Jan 1, 1960', '0123456700', 'PRACTISING' ]

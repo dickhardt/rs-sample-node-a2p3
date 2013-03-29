@@ -70,14 +70,21 @@ exports.loginQR = function ( req, res )  {
 // we send a meta-refresh so that we show a info page in case there is no agent to
 // handle the a2p3.net: protcol scheme
 exports.loginDirect = function ( req, res ) {
+
+// debugger;
+
   var params =
     { returnURL: common.makeHostUrl( req ) + '/lawyer/response/redirect'
     , resources: RESOURCES
     }
     , agentRequest = a2p3.createAgentRequest( config, vault, params )
     , redirectURL = 'a2p3.net://token?request=' + agentRequest
-    , html = common.metaRedirectInfoPage( redirectURL )
-  res.send( html )
+  if (req.query && req.query.json) {  // client wants JSON,
+    return res.send( { result: {'request': redirectURL } } )
+  } else {
+    var html = common.metaRedirectInfoPage( redirectURL )
+    return res.send( html )
+  }
 }
 
 

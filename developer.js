@@ -61,8 +61,12 @@ exports.loginDirect = function ( req, res ) {
     }
     , agentRequest = a2p3.createAgentRequest( config, vault, params )
     , redirectURL = 'a2p3.net://token?request=' + agentRequest
-    , html = common.metaRedirectInfoPage( redirectURL )
-  res.send( html )
+  if (req.query && req.query.json) {  // client wants JSON,
+    return res.send( { result: {'request': redirectURL } } )
+  } else {
+    var html = common.metaRedirectInfoPage( redirectURL )
+    return res.send( html )
+  }
 }
 
 

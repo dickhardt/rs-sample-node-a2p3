@@ -308,6 +308,7 @@ body img[height="1"] {
 .mainTitleText {
 	font-family: 'Century Gothic';
 	font-size: 15px;
+	line-height: 2em;
 }
 
 .genericButton, .genericSmallButton
@@ -587,4 +588,9 @@ body img[height="1"] {
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	border: 1px solid #959595;
+}
+
+.headerLogo {
+	float:left;
+	padding-right: 8px;
 }

@@ -43,11 +43,11 @@
         <table id="table-Memberships" >
           <thead>
             <tr role="row">
-              <TH width="48px" role="columnheader" class="tableRowMembershipPhoto">Photo</TH>
+              <TH width="50px" role="columnheader" class="tableRowMembershipPhoto">Photo</TH>
               <TH role="columnheader" class="tableRowMembershipName">Name</TH>
               <TH role="columnheader" class="tableRowMembershipEmail">Email</TH>
-              <TH role="columnheader" class="tableRowMembershipDOB">Date of Birth</TH>
-              <TH role="columnheader" class="tableRowMembershipNumber">Number</TH>
+              <TH width="90px" role="columnheader" class="tableRowMembershipDOB">Date of Birth</TH>
+              <TH width="90px" role="columnheader" class="tableRowMembershipNumber">Number</TH>
               <TH role="columnheader" class="tableRowMembershipStatus">Status</TH>
               <TH role="columnheader" class="tableRowMembershipUpdateStatus"></TH>
             </tr>
@@ -152,8 +152,7 @@ function onReady() {
       null,
       null,
       { "bSortable": false }]
-      } )
-
+      } ).fnSort( [ [0,'asc'], [1,'asc'] ] );
 
   $.ajaxSetup(
     { type: 'POST'
@@ -169,7 +168,7 @@ function onReady() {
         var status = row[ row.length - 1 ]
         row.push('<a class="genericSmallButton" href="" id="'+di+'">update</a>')
         var url = row.shift()
-        row.unshift('<img class="photoImage" src="'+url+'">')
+        row.unshift('<div align="center"><img class="photoImage" src="'+url+'"></div>')
         $('#table-Memberships').dataTable().fnAddData( row )
         $('#'+di).click( showUpdateStatus( di, status ) )
       }

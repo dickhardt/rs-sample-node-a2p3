@@ -19,16 +19,9 @@
 		<a href="http://a2p3.net"><img class="headerLogo" alt="A2P3" src="/images/a2p3_logo.png" border="0"></a>
 		<span class="mainTitle">Law Society</span>
 		<div class="mainTitleText">Welcome to the Member Portal</div>
-	</section>
-</header>
-
-<section class="mainContent">
-	<div class="mainContentWrap">
-		<br>
-		<div style="float: right" class="loginStatus">
+		<div class="loginStatus">
 		  <a href="/logout" id="logout" class="genericButton">Logout</a>
 		</div>
-		
 		<div style="" class="di">
 	      <br>
 		  <span id="directedIdentifier"></span>
@@ -36,16 +29,21 @@
 		  <a class="otherLinks" href="" id="hideDI">hide DI</a>
 		</div>
 	
+	</section>
+</header>
+
+<section class="mainContent">
+	<div class="mainContentWrap">
+		<br>
+		
 		<div id="profileSection" class="genericSection">
+			<a id="accountDelete" class="genericButton" style="float:right;top:0px:right:0px;" href="">Delete Account</a>
 			<p class="categoryTitle">Profile</p>
 			<table id="profileTable" class=""> </table>
 
 		</div>
 
     <div id="enrollmentDescriptionSection">
-
-<!-- would like this section over to the right of the profile data like in the mockup -->
-
       <p>If this were a real enrollment process, the name, DOB, address, email and membership number and any other shared identity idenity would be confirmed to match information in the existing database. When the user confirms, the A2P3 Directed Identifier would be linked to the existing database and the user would be able authorize apps to access their their membership status and membership number.</p>
     </div>
 
@@ -60,14 +58,15 @@
       </div>
     </div>
 
-    <div id="statusSection" class="statusSection">
+    <div id="statusSection" class="genericSection">
       <div class="categoryTitle">Membership Status
         <p>
           <div id="membershipStatus"></div>
         </p>
       </div>
       <a id="changeStatus" class="genericButton" href="">Change Status</a>
-	  <a id="accountDelete" class="genericButton" href="">Delete Account</a>
+	  
+	  <br><br>
     </div>
 
 

@@ -110,7 +110,7 @@ function showUpdateStatus ( di, status ) {
     $('#'+status).attr('checked', 'checked')
     $('#updateStatus_form').show()
     $('#updateStatusSubmit').click( function () {
-      $.post( '/admin/membershipStatus'
+      $.post( '/admin/membership/status'
           , { di: di, status: $("input:radio[name='status']:checked").val() }
           , function ( data, status ) {
               window.location = '/admin'

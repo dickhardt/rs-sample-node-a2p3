@@ -200,7 +200,6 @@ exports.membershipStatus = function  ( req, res, next ) {
       return next( new Error('Invalid status') )
   db.updateProfile( di, { status: status }, function ( e ) {
     if (e) return next( e )
-    req.session.profile.status = status
     res.send( { result: { success: true } } )
   })
 }

@@ -19,8 +19,12 @@
   <script type="text/javascript" src="/jquery.dataTables.js"></script>
 <header class="header">
 	<section class="headerContainer">
+		<a href="http://a2p3.net"><img class="headerLogo" alt="A2P3" src="/images/a2p3_logo.png" border="0"></a>
 		<span class="mainTitle">Law Society</span>
 		<div class="mainTitleText">Administrative Portal</div>
+		<div class="loginStatus">
+		  <a href="/logout" id="logout" class="genericSmallButton">Logout</a>
+		</div>
 	</section>
 </header>
 
@@ -28,8 +32,7 @@
     
 
 	<div class="mainContentWrap">
-	<a style="float:right; z-index: 1;" href="/logout" id="logout" class="genericButton">logout </a>
-    <br><BR><BR>
+	<br><BR><BR>
     <div>
     <div id="tabs">
       <ul>
@@ -40,11 +43,11 @@
         <table id="table-Memberships" >
           <thead>
             <tr role="row">
-              <TH width="48px" role="columnheader" class="tableRowMembershipPhoto">Photo</TH>
+              <TH width="50px" role="columnheader" class="tableRowMembershipPhoto">Photo</TH>
               <TH role="columnheader" class="tableRowMembershipName">Name</TH>
               <TH role="columnheader" class="tableRowMembershipEmail">Email</TH>
-              <TH role="columnheader" class="tableRowMembershipDOB">Date of Birth</TH>
-              <TH role="columnheader" class="tableRowMembershipNumber">Number</TH>
+              <TH width="90px" role="columnheader" class="tableRowMembershipDOB">Date of Birth</TH>
+              <TH width="90px" role="columnheader" class="tableRowMembershipNumber">Number</TH>
               <TH role="columnheader" class="tableRowMembershipStatus">Status</TH>
               <TH role="columnheader" class="tableRowMembershipUpdateStatus"></TH>
             </tr>
@@ -149,8 +152,7 @@ function onReady() {
       null,
       null,
       { "bSortable": false }]
-      } )
-
+      } ).fnSort( [ [0,'asc'], [1,'asc'] ] );
 
   $.ajaxSetup(
     { type: 'POST'
@@ -166,7 +168,7 @@ function onReady() {
         var status = row[ row.length - 1 ]
         row.push('<a class="genericSmallButton" href="" id="'+di+'">update</a>')
         var url = row.shift()
-        row.unshift('<img class="photoImage" src="'+url+'">')
+        row.unshift('<div align="center"><img class="photoImage" src="'+url+'"></div>')
         $('#table-Memberships').dataTable().fnAddData( row )
         $('#'+di).click( showUpdateStatus( di, status ) )
       }

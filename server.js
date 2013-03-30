@@ -16,7 +16,7 @@ var express = require('express')
   , admin = require('./admin')
   , resource = require('./resource')
 
-var LISTEN_PORT = 8080  // change if you want listen on a different port
+var LISTEN_PORT = 9090  // change if you want listen on a different port
 
 if (process.env.DOTCLOUD_WWW_HTTP_URL) {
   // looks like we are running on DotCloud, adjust our world

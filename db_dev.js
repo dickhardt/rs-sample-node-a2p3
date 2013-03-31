@@ -8,6 +8,7 @@
 
 var underscore = require('underscore')
   , identity = require('./identity')
+  , config = require('./config.json')
 
 
 // for development, we only keep our database alive until we die
@@ -218,7 +219,7 @@ exports.getUsers = function ( cb ) {
 // TBD - update App Table with superset of type of access granted
 
 exports.oauthCreate = function ( details, cb) {
-  var accessToken = identity.handle()
+  var accessToken = identity.makeHandle()
   var appID = details.app
   var keyAccess = 'oauth:' + accessToken
   // NOTE: an App may have multiple Access Tokens, and with different priveleges
@@ -230,9 +231,9 @@ exports.oauthCreate = function ( details, cb) {
   dummyNoSql[keyDI][accessToken] = appID
 
   // flip appropriate flag for scopes(s) requested
-  if ( details.scopes.indexOf('http://law.a2p3.net/scope/anytime/number') != -1 )
+  if ( details.scopes.indexOf('http://' + config.appID + '/scope/anytime/number') != -1 )
     dummyNoSql['app:' + appID].anytimeNumber = true
-  if ( details.scopes.indexOf('http://law.a2p3.net/scope/anytime/status') != -1 )
+  if ( details.scopes.indexOf('http://' + config.appID + '/scope/anytime/status') != -1 )
     dummyNoSql['app:' + appID].anytimeStatus = true
 
   process.nextTick( function () { cb( null, accessToken ) } )

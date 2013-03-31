@@ -164,7 +164,7 @@ app.post('/membership/anytime/number', resource.membershipAnytimeNumber() )
 app.post('/oauth', resource.oauth() )
 
 app.post('/authorizations/list', resource.AuthorizationsList() )
-app.post('/authorizations/Delete', resource.AuthorizationsDelete() )
+app.post('/authorization/delete', resource.AuthorizationDelete() )
 
 app.get('/documentation', resource.documentation )
 app.get(/\/scope[\w\/]*/, resource.scopes )

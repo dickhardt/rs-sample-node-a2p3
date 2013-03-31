@@ -21,7 +21,7 @@ function checkAdmin ( agentRequest, ixToken, callback ) {
   var resource = new a2p3.Resource( config, vault )
   resource.exchange( agentRequest, ixToken, function ( error, di ) { // no use for DI as an Admin
     if ( error ) return callback ( error )
-    resource.call( 'http://registrar.a2p3.net/app/verify', { id: 'law.a2p3.net' }, function ( error, result ) {
+    resource.call( 'http://registrar.a2p3.net/app/verify', { id: config.appID }, function ( error, result ) {
       if ( error ) return callback( error )
       if ( !result ) return callback( new Error('Unknown error') )
       callback( null, true )

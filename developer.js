@@ -9,6 +9,7 @@
 
 var a2p3 = require('a2p3')
   , common = require('./common')
+  , db = require('./db')
   // make sure you have created a config.json and vault.json per a2p3 documentation
   , config = require('./config.json')
   , vault = require('./vault.json')
@@ -18,8 +19,14 @@ var RESOURCES =
     , 'http://registrar.a2p3.net/scope/verify'
     ]
 
+// NOTE: this does not scale past one instance running
+// the resource var should be saved into a session state stored in
+// a DB shared across servers
+
+var resource = null
+
 function fetchEmail ( agentRequest, ixToken, callback ) {
-  var resource = new a2p3.Resource( config, vault )
+  resource = new a2p3.Resource( config, vault )
   resource.exchange( agentRequest, ixToken, function ( error, di ) {  // no use for DI as developer
     if ( error ) return callback ( error )
     resource.call( 'http://email.a2p3.net/email/default', function ( error, result ) {
@@ -54,8 +61,12 @@ exports.loginDirect = function ( req, res ) {
     }
     , agentRequest = a2p3.createAgentRequest( config, vault, params )
     , redirectURL = 'a2p3.net://token?request=' + agentRequest
-    , html = common.metaRedirectInfoPage( redirectURL )
-  res.send( html )
+  if (req.query && req.query.json) {  // client wants JSON,
+    return res.send( { result: {'request': redirectURL } } )
+  } else {
+    var html = common.metaRedirectInfoPage( redirectURL )
+    return res.send( html )
+  }
 }
 
 
@@ -147,59 +158,59 @@ exports.checkQR = function ( req, res, next ) {
 }
 
 exports.loginCheck = function ( req, res, next ) {
-  // NEEDS TO DO SOMETHING STILL
-  res.send( { result: { expiresIn: 5*60, user: 'joe@example.com' } } )
+  if (!req.session.email) return next( new Error( 'No email in session') )
+  res.send( { result: { expiresIn: 5*60, user: req.session.email } } )
 }
 
 exports.newApp = function ( req, res, next ) {
-  // DEV HACK
-  res.send( { result: { success: true } } )
+  var appID = req.body.id
+  if (!appID) return next( new Error('No App ID passed in') )
+  // check app has been registered at Registrar and user is an admin for it
+  resource.call( 'http://registrar.a2p3.net/app/verify', { id: appID }, function ( error, result ) {
+    if ( error ) return next( error )
+    if ( !result || !result.name ) return next( new Error('Unknown error') )
+    db.newApp( appID, result.name, req.session.email, function ( e, key ) {
+      if ( e ) return next( e )
+      return res.send( { result: { key: key } } )
+    })
+  })
 }
 
 exports.appDetails = function ( req, res, next ) {
-  // DEV HACK
-  res.send(
-    { result:
-      { details:
-        { admins: { 'joe@example.com': "ACTIVE" }
-        , anytime: false
-        , keys:
-          { latest:
-            { kid: "oK6o7ijsTKLZS5QW"
-            , key: "aywnJkrllfp7wi8TMul-bXwTp4_WVHxHjG3X67-tHyRsfKoGJP5fvuwGMZtBOjuOd4jbLIG15NA44WCwtEP7oQ"
-            }
-          }
-        , name: "Sample App"
-        , email: "joe@example.com"
-        }
-      }
-    } )
+  if (!req.body.id) return next( new Error( 'No App ID in request') )
+  db.appDetails( req.session.email, req.body.id, function ( e, details ) {
+    if ( e ) return next( e )
+    return res.send( { result: {'details': details, 'email': req.session.email } } )
+  })
 }
 
 exports.listApps = function ( req, res, next ) {
-  // DEV HACK
-  res.send(
-    { result:
-      { email: "joe@example.com"
-      , list:
-        { 'a2p3-sample.azurewebsites.net': "Sample App on Azure"
-        , 'sample-dickhardt.dotcloud.com': "Sample App"
-        }
-      }
-    } )
+  db.listApps( req.session.email, function ( e, list ) {
+    if ( e ) return next( e )
+    return res.send( { result: {'list': list, 'email': req.session.email } } )
+  })
 }
 
 exports.deleteApp = function ( req, res, next ) {
-  next( new Error( "UNIMPLEMENTED" ))
-
+  if (!req.body.id) return next( new Error( 'No App ID in request') )
+  db.deleteApp( req.body.id, function ( e ) {
+    if ( e ) return next( e )
+    return res.send( {result:{success: true }} )
+  })
 }
 
 exports.refreshKey = function ( req, res, next ) {
-  next( new Error( "UNIMPLEMENTED" ))
-
+  if (!req.body.id) return next( new Error( 'No App ID in request') )
+  db.refreshAppKey( req.body.id, function ( e, key ) {
+    if ( e ) return next( e )
+    return res.send( {result:{'id': req.body.id, 'key': key}} )
+  })
 }
 
-exports.getkey = function ( req, res, next ) {
-  next( new Error( "UNIMPLEMENTED" ))
-
+exports.getKey = function ( req, res, next ) {
+  if (!req.body.id) return next( new Error( 'No App ID in request') )
+  db.getAppKey( req.body.id, null, function ( e, key ) {
+    if ( e ) return next( e )
+    return res.send( {result:{'id': req.body.id, 'key': key}} )
+  })
 }

@@ -9,6 +9,7 @@
 
 var a2p3 = require('a2p3')
   , common = require('./common')
+  , db = require('./db')
   // make sure you have created a config.json and vault.json per a2p3 documentation
   , config = require('./config.json')
   , vault = require('./vault.json')
@@ -20,7 +21,7 @@ function checkAdmin ( agentRequest, ixToken, callback ) {
   var resource = new a2p3.Resource( config, vault )
   resource.exchange( agentRequest, ixToken, function ( error, di ) { // no use for DI as an Admin
     if ( error ) return callback ( error )
-    resource.call( 'http://registrar.a2p3.net/app/verify', { id: 'law.a2p3.net' }, function ( error, result ) {
+    resource.call( 'http://registrar.a2p3.net/app/verify', { id: config.appID }, function ( error, result ) {
       if ( error ) return callback( error )
       if ( !result ) return callback( new Error('Unknown error') )
       callback( null, true )
@@ -52,8 +53,12 @@ exports.loginDirect = function ( req, res ) {
     }
     , agentRequest = a2p3.createAgentRequest( config, vault, params )
     , redirectURL = 'a2p3.net://token?request=' + agentRequest
-    , html = common.metaRedirectInfoPage( redirectURL )
-  res.send( html )
+  if (req.query && req.query.json) {  // client wants JSON,
+    return res.send( { result: {'request': redirectURL } } )
+  } else {
+    var html = common.metaRedirectInfoPage( redirectURL )
+    return res.send( html )
+  }
 }
 
 
@@ -145,36 +150,66 @@ exports.checkQR = function ( req, res, next ) {
   })
 }
 
-var dummyMemberships =
-  [ [ 12345678901, 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Giacomo Guilizzoni', 'Giacomo@example.com', 'Jan 1, 1960', '0123456700', 'PRACTISING' ]
-  , [ 12345678902, 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Marco Botton', 'Marco@example.com', 'Jan 1, 1960', '0123456711', 'NON-PRACTISING' ]
-  , [ 12345678903, 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Mariah Maclachlan', 'Mariah@example.com', 'Jan 1, 1960', '0123456799', 'RETIRED' ]
-  , [ 12345678904, 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Valerie Liberty', 'Valerie@example.com', 'Jan 1, 1960', '0123456722', 'PRACTISING' ]
-  , [ 12345678905, 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Guido Jack Guilizzoni', 'Guido@example.com', 'Jan 1, 1960', '0123456777', 'NON-PRACTISING' ]
-  ]
+// var testProfile =
+//   { address1: "100 Main Street"
+//   , address2: "Suite 1000"
+//   , city: "Anyville"
+//   , di: "w4rDoV7DhyZzwrTCv8K2McK2wrATXEhfDDkZZQ"
+//   , dob: "May 28, 1963"
+//   , email: "dick@blame.ca"
+//   , name: "Dick Hardt"
+//   , number: "702-394"
+//   , photo: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg"
+//   , postal: "U1U 1A1"
+//   , province: "BC"
+//   , status: "PRACTISING"
+//   }
 
-var dummyApplications =
-  [ [ 'Sample1 App', 'sample1.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'none' ]
-  , [ 'Sample2 App', 'sample2.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'status' ]
-  , [ 'Sample3 App', 'sample3.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'number' ]
-  , [ 'Sample4 App', 'sample4.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'status, number' ]
-  , [ 'Sample5 App', 'sample5.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'status, number' ]
-  , [ 'Sample6 App', 'sample6.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'none' ]
-  ]
+// db.updateProfile( "w4rDoV7DhyZzwrTCv8K2McK2wrATXEhfDDkZZQ", testProfile, function( e ) { console.log('\n updateProfile returned',e)} )
 
-exports.memberships = function  ( req, res ) {
-// TBD: DEVELOPMENT TESTING
-  res.send( { result: dummyMemberships } )
+// var dummyMemberships =
+//   [ [ 12345678901, 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Giacomo Guilizzoni', 'Giacomo@example.com', 'Jan 1, 1960', '0123456700', 'PRACTISING' ]
+//   , [ 12345678902, 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Marco Botton', 'Marco@example.com', 'Jan 1, 1960', '0123456711', 'NON-PRACTISING' ]
+//   , [ 12345678903, 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Mariah Maclachlan', 'Mariah@example.com', 'Jan 1, 1960', '0123456799', 'RETIRED' ]
+//   , [ 12345678904, 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Valerie Liberty', 'Valerie@example.com', 'Jan 1, 1960', '0123456722', 'PRACTISING' ]
+//   , [ 12345678905, 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/273625_504347313_41825903_q.jpg', 'Guido Jack Guilizzoni', 'Guido@example.com', 'Jan 1, 1960', '0123456777', 'NON-PRACTISING' ]
+//   ]
+
+// var dummyApplications =
+//   [ [ 'Sample1 App', 'sample1.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'none' ]
+//   , [ 'Sample2 App', 'sample2.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'status' ]
+//   , [ 'Sample3 App', 'sample3.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'number' ]
+//   , [ 'Sample4 App', 'sample4.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'status, number' ]
+//   , [ 'Sample5 App', 'sample5.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'status, number' ]
+//   , [ 'Sample6 App', 'sample6.example.com', 'fred@example.com', '2013-03-26 13:34:28', '2013-03-26 13:34:28', 'none' ]
+//   ]
+
+exports.memberships = function  ( req, res, next ) {
+  db.getUsers( function ( e, profiles ) {
+    if ( e ) return next( e )
+    res.send( { result: profiles } )
+  })
 }
 
-exports.membershipStatus = function  ( req, res ) {
-// TBD: DEVELOPMENT TESTING
-  return res.send( { status: 'success'} )
+exports.membershipStatus = function  ( req, res, next ) {
+  var di = req.body.di
+  if (!di) return next( new Error('No DI provided') )
+  var status = req.body.status
+  if (!status) return next( new Error('No status provided') )
+  if ( status != 'PRACTISING' && status != 'NON-PRACTISING' && status != 'RETIRED' )
+      return next( new Error('Invalid status') )
+  db.updateProfile( di, { status: status }, function ( e ) {
+    if (e) return next( e )
+    res.send( { result: { success: true } } )
+  })
 }
 
-exports.applications = function  ( req, res ) {
-  // TBD: DEVELOPMENT TESTING
-  res.send( { result: dummyApplications } )
+
+exports.applications = function  ( req, res, next ) {
+  db.getApps( function ( e, apps ) {
+    if ( e ) return next( e )
+    res.send( { result: apps } )
+  })
 }
 
 /*

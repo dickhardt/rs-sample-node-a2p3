@@ -70,14 +70,21 @@ exports.loginQR = function ( req, res )  {
 // we send a meta-refresh so that we show a info page in case there is no agent to
 // handle the a2p3.net: protcol scheme
 exports.loginDirect = function ( req, res ) {
+
+// debugger;
+
   var params =
     { returnURL: common.makeHostUrl( req ) + '/lawyer/response/redirect'
     , resources: RESOURCES
     }
     , agentRequest = a2p3.createAgentRequest( config, vault, params )
     , redirectURL = 'a2p3.net://token?request=' + agentRequest
-    , html = common.metaRedirectInfoPage( redirectURL )
-  res.send( html )
+  if (req.query && req.query.json) {  // client wants JSON,
+    return res.send( { result: {'request': redirectURL } } )
+  } else {
+    var html = common.metaRedirectInfoPage( redirectURL )
+    return res.send( html )
+  }
 }
 
 
@@ -216,27 +223,3 @@ exports.agreeTOS = function ( req, res, next )  {
     res.send( { result: { success: true } } )
   })
 }
-
-/*
-// ******************************************************
-// check that we have implemented all functions!!!!
-//
-
-app.post('/lawyer/login/QR', lawyer.loginQR )
-app.post('/lawyer/check/QR', lawyer.checkQR )
-
-app.post('/lawyer/profile', lawyer.profile )
-app.post('/lawyer/status', lawyer.status )
-
-app.get('/lawyer/QR/:qrSession', lawyer.qrCode )
-
-
-
-// called if App and Agent are on same device
-app.get('/lawyer/login/direct', lawyer.loginDirect )
-app.get('/lawyer/response/redirect', lawyer.loginResponseRedirect )
-
-// called if App and Agent are on different devices
-app.post('/lawyer/response/callback', lawyer.loginResponseCallback )
-
-*/

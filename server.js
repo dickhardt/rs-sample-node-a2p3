@@ -139,11 +139,19 @@ app.post('/dashboard/app/details',  developer.appDetails )
 app.post('/dashboard/list/apps',    developer.listApps )
 app.post('/dashboard/delete/app',   developer.deleteApp )
 app.post('/dashboard/refresh/key',  developer.refreshKey )
-app.post('/dashboard/getkey',       developer.getkey )
+app.post('/dashboard/getkey',       developer.getKey )
+// same end poionts, but mapped for /developer
+app.post('/developer/new/app',      developer.newApp )
+app.post('/developer/app/details',  developer.appDetails )
+app.post('/developer/list/apps',    developer.listApps )
+app.post('/developer/delete/app',   developer.deleteApp )
+app.post('/developer/refresh/key',  developer.refreshKey )
+app.post('/developer/getkey',       developer.getKey )
+
 
 // admin APIs
 app.post('/admin/memberships', admin.memberships )
-app.post('/admin/membershipStatus', admin.membershipStatus )
+app.post('/admin/membership/status', admin.membershipStatus )
 app.post('/admin/applications', admin.applications )
 
 
@@ -156,7 +164,7 @@ app.post('/membership/anytime/number', resource.membershipAnytimeNumber() )
 app.post('/oauth', resource.oauth() )
 
 app.post('/authorizations/list', resource.AuthorizationsList() )
-app.post('/authorizations/Delete', resource.AuthorizationsDelete() )
+app.post('/authorization/delete', resource.AuthorizationDelete() )
 
 app.get('/documentation', resource.documentation )
 app.get(/\/scope[\w\/]*/, resource.scopes )

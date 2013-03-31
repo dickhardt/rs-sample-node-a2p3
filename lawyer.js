@@ -36,12 +36,12 @@ function fetchProfile( agentRequest, ixToken, callback ) {
       resource.callMultiple( APIS, function ( error, results ) {
         var profile
         if (results) {
-          if (results['people.a2p3.net'] && results['people.a2p3.net'].redirects &&
-              results['people.a2p3.net'].redirects[0] && results[ results['people.a2p3.net'].redirects[0] ]) {
-            profile = results[ results['people.a2p3.net'].redirects[0] ]
+          if (results['http://people.a2p3.net/details'] && results['http://people.a2p3.net/details'].redirects &&
+              results[ results['http://people.a2p3.net/details'].redirects ]) {
+            profile = results[ results['http://people.a2p3.net/details'].redirects ]
           } else return callback( new Error('No people.a2p3.net data'), null )
-          if ( results['email.a2p3.net'] && results['email.a2p3.net'].email )
-            profile.email = results['email.a2p3.net'].email
+          if ( results['http://email.a2p3.net/email/default'] && results['http://email.a2p3.net/email/default'].email )
+            profile.email = results['http://email.a2p3.net/email/default'].email
           profile.di = di
           return callback( null, profile )
         }
@@ -197,7 +197,7 @@ exports.accountDelete = function ( req, res, next )  {
 
 // update user status in DB
 exports.status = function ( req, res, next )  {
-  var di = req.session.profile.di
+  var di = req.session.profile && req.session.profile.di
   if (!di) return next( new Error('No DI in session profile') )
   var status = req.body.status
   if (!status) return next( new Error('No status passed in') )
@@ -212,7 +212,7 @@ exports.status = function ( req, res, next )  {
 
 // save user to DB
 exports.agreeTOS = function ( req, res, next )  {
-  var di = req.session.profile.di
+  var di = req.session.profile && req.session.profile.di
   if (!di) return next( new Error('No DI in session profile') )
   var number = req.body.number
   if (!number) return next( new Error('No number passed in') )

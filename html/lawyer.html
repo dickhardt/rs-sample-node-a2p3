@@ -16,18 +16,12 @@
   <script src="/jquery.qrcode.min.js"></script>
 <header class="header">
 	<section class="headerContainer">
+		<a href="http://a2p3.net"><img class="headerLogo" alt="A2P3" src="/images/a2p3_logo.png" border="0"></a>
 		<span class="mainTitle">Law Society</span>
 		<div class="mainTitleText">Welcome to the Member Portal</div>
-	</section>
-</header>
-
-<section class="mainContent">
-	<div class="mainContentWrap">
-		<br>
-		<div style="float: right" class="loginStatus">
-		  <a href="/logout" id="logout" class="genericButton">Logout</a>
+		<div class="loginStatus">
+		  <a href="/logout" id="logout" class="genericSmallButton">Logout</a>
 		</div>
-		
 		<div style="" class="di">
 	      <br>
 		  <span id="directedIdentifier"></span>
@@ -35,43 +29,53 @@
 		  <a class="otherLinks" href="" id="hideDI">hide DI</a>
 		</div>
 	
+	</section>
+</header>
+
+<section class="mainContent">
+	<div class="mainContentWrap">
 		<div id="profileSection" class="genericSection">
-			<p class="categoryTitle">Profile</p>
+			<a id="accountDelete" class="genericButton" style="float:right;top:0px:right:0px;" href="">Delete Account</a>
+			<div id="enrollmentDescriptionSection" style="top:0px; right: 50%; float:right; width:50%;">
+		      <p>If this were a real enrollment process, the name, DOB, address, email and membership number and any other shared identity idenity would be confirmed to match information in the existing database. When the user confirms, the A2P3 Directed Identifier would be linked to the existing database and the user would be able authorize apps to access their their membership status and membership number.</p>
+	      	</div>
+
+			<div class="categoryTitle">Profile</div>
+			
 			<table id="profileTable" class=""> </table>
 
 		</div>
-
-    <div id="enrollmentDescriptionSection">
-
-<!-- would like this section over to the right of the profile data like in the mockup -->
-
-      <p>If this were a real enrollment process, the name, DOB, address, email and membership number and any other shared identity idenity would be confirmed to match information in the existing database. When the user confirms, the A2P3 Directed Identifier would be linked to the existing database and the user would be able authorize apps to access their their membership status and membership number.</p>
-    </div>
-
-    <div id="enrollmentSection" class="enrollSection">
+		<div id="membershipSection" class="genericSection">
+			<table id="membershipTable"></table>
+		</div>
+		
+    
+    <div id="enrollmentSection" class="genericSection">
       <div class="categoryTitle">Membership Verification
       </div>
+      
       <p>Please set a ficticious value to simulate a membership number.</p>
       <div class="formItemWrap">
         <span class="genericLabel" style="text-align: left;">Law Society Membership Number</span>
-          <input type="text" id="membershipNumber_input"
+          <input type="text" size="8" id="membershipNumber_input"
           placeholder="XXX-XXX" class="textMembershipNumber" name="number">
       </div>
     </div>
 
-    <div id="statusSection" class="statusSection">
+    <div id="statusSection" class="genericSection">
       <div class="categoryTitle">Membership Status
         <p>
           <div id="membershipStatus"></div>
         </p>
       </div>
       <a id="changeStatus" class="genericButton" href="">Change Status</a>
-	  <a id="accountDelete" class="genericButton" href="">Delete Account</a>
+	  
+	  <br><br>
     </div>
 
 
 		<div id="TOS" class="genericSection">
-			<p class="categoryTitle">Terms of Service</p>
+			<div class="categoryTitle">Terms of Service</div>
 			<!-- make the a scrollable text box -->
 			<p>
 			  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -191,6 +195,7 @@ function onReady() {
       $('#enrollmentSection').show()
       $('#cancel').show()
       $('#TOS').show()
+      $('#accountDelete').hide()
     } else {
       status = profile.status
       $('#membershipStatus').text( profile.status )

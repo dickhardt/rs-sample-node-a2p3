@@ -27,7 +27,7 @@
 	font-style: normal;
 }
 
-.loginStatus {text-align:right;}
+.loginStatus {text-align:right; float:right; right: 10px; top:25px; position:absolute;}
   .loginItem {padding-left: 5px;}
   
 footer,header,section {
@@ -308,6 +308,7 @@ body img[height="1"] {
 .mainTitleText {
 	font-family: 'Century Gothic';
 	font-size: 15px;
+	line-height: 2em;
 }
 
 .genericButton, .genericSmallButton
@@ -436,7 +437,12 @@ body img[height="1"] {
 .di {
 	text-align:right;
 	float: right;
-	margin-top: -20px;
+	text-align:right; 
+	float:right; 
+	right: 100px; 
+	top:20px; 
+	position:absolute;
+	/*margin-top: -20px;*/
 }
 
 /*For screens with max width of 980px */
@@ -587,4 +593,9 @@ body img[height="1"] {
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	border: 1px solid #959595;
+}
+
+.headerLogo {
+	float:left;
+	padding-right: 8px;
 }

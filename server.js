@@ -27,9 +27,9 @@ if (process.env.DOTCLOUD_NODEJS_HTTP_URL) {
   //  var AZURE = true
 }
 
-console.log('\n process.env.PORT_NODEJS='+process.env.PORT_NODEJS)
-console.log('\n process.env.PORT='+process.env.PORT)
-console.log('\n LISTEN_PORT='+LISTEN_PORT)
+// console.log('\n process.env.PORT_NODEJS='+process.env.PORT_NODEJS)
+// console.log('\n process.env.PORT='+process.env.PORT)
+// console.log('\n LISTEN_PORT='+LISTEN_PORT)
 
 // clear session, logout user
 function logout ( req, res )  {

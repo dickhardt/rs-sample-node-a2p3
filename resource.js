@@ -216,9 +216,10 @@ function _makeDeleteAuthNRequest ( di, app ) {
 // list all authorizations provided by user
 function listAuthN ( req, res, next ) {
 
-console.log('\n AuthorizationsList\n dummyNoSql\n',db.dump())
-
   var di = req.token.sub
+
+console.log('\n AuthorizationsList\n dummyNoSql\n',db.dump(),'\nreq.token\n',req.token)
+
   db.oauthList( di, function ( e, results ) {
     if (e) return next( e )
     if (!results) return res.send( { result: {} } )

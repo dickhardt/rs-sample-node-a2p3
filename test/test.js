@@ -163,6 +163,9 @@ describe('Testing /lawyer ', function () {
         r.result.should.have.property('di')
         // save for later
         di = r.result.di
+
+    console.log('\n DI:'+di+'\n')
+
         done( null )
       })
     })

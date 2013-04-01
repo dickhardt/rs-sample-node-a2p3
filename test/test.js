@@ -24,15 +24,18 @@ var vault = {}
 
 // test configuration
 
-var HOST_PORT = 8080
-  , HOST_URL = 'http://macpro.local' + ':' + HOST_PORT
+var HOST_PORT = 80  // change to 80 if testing against DotCloud or Azure
   , SETUP_URL = 'http://setup.a2p3.net'
   , NUMBER = '123-456'
+
+var HOST_URL = 'http://' + config.appID
+
+if (HOST_PORT != 80)
+  HOST_URL += ':' + HOST_PORT
 
 
 //  holding directed identifier of user at app
 var di = null
-
 
 debugger;
 
@@ -41,6 +44,8 @@ debugger;
 *   login, accept TOS, get profile page, check membership number and status,
 *   change status to non-practising, check status, logout
 */
+
+console.log('testing against '+HOST_URL)
 
 describe('Testing /lawyer ', function () {
   var agentRequest = null
@@ -1154,6 +1159,9 @@ describe('Removing authorization to ' + TEST_APP_ID, function () {
         should.exist( json )
         json.should.not.have.property('error')
         json.should.have.property('result')
+
+console.log('\n /authorizations/requests',json)
+
         json.result.should.have.property( config.appID )
         // save resourceRequest for next step
         resourceRequest = json.result[ config.appID ]

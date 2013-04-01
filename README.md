@@ -3,7 +3,60 @@ rs-sample-node-a2p3
 
 Sample Resource Server for A2P3
 
-IN DEVELOPMENT!
+##Prerequsites
+- git
+
+- node 0.8.x or later
+
+- Facebook account
+
+####Optional
+- [DotCloud](http://dotcloud.com) account
+
+##Install and Setup
+1) `git clone git://github.com/dickhardt/sample-node-a2p3.git`
+
+2) `cd sample-node-a2p3`
+
+3) `npm install`
+
+4) `npm run config`
+
+5) Register if need be at [setup.a2p3.net](http://setup.a2p3.net) and create a CLI Agent and save the device and token parameters
+
+6) Edit config.json and insert the `device` and `token` parameters
+
+7) `npm run register` to create the vault.json file
+
+8) `npm start` will start the server locally
+
+####config.json and vault.json
+See [node-a2p3](https://github.com/dickhardt/node-a2p3) for details
+
+
+
+##DotCloud Deployment
+
+1) Register at [DotCloud](http://dotcloud.com) for a free account and install the dotcloud CLI. Note your account name.
+
+2) `dotcloud create lawsample` answer yes to link
+
+3) Edit config.json and change `appID` to `lawsample-`<dotcloud_account_name>`.dotcloud.com`
+
+4) `npm run register` to create a vault.json file for the DotCloud hostname
+
+5) `dotcloud push` will deploy to dotcloud
+
+NOTE: this application needs a later version of node.js than the standard one on DotCloud, so node.js 0.8.17 is built to run the app
+
+
+##Testing
+`npm test` will run the tests
+
+you may need to edit some constants in /test/test.js 
+
+The server must be running to be tested, and the DB needs to be empty.
+Stopping and restarting the server will clear the in-memory DB.
 
 ## Related
 

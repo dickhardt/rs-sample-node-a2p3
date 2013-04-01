@@ -291,5 +291,7 @@ exports.oauthDelete = function ( di, appID, cb ) {
   process.nextTick( function () { cb( null ) } )
 }
 
-
+exports.dump = function() {
+  return dummyNoSql
+}
 

@@ -18,15 +18,18 @@ var express = require('express')
 
 var LISTEN_PORT = 8080  // change if you want listen on a different port
 
-if (process.env.DOTCLOUD_WWW_HTTP_URL) {
+if (process.env.DOTCLOUD_NODEJS_HTTP_URL) {
   // looks like we are running on DotCloud, adjust our world
-  LISTEN_PORT = 8080
+  LISTEN_PORT = process.env.PORT_NODEJS
 } else if (process.env.PORT) {
   // HACK! looks like we might be running on Azure
   LISTEN_PORT = process.env.PORT
   //  var AZURE = true
 }
 
+console.log('\n process.env.PORT_NODEJS='+process.env.PORT_NODEJS)
+console.log('\n process.env.PORT='+process.env.PORT)
+console.log('\n LISTEN_PORT='+LISTEN_PORT)
 
 // clear session, logout user
 function logout ( req, res )  {

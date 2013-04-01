@@ -14,7 +14,9 @@ var HOST_URL = null
 
 if (process.env.DOTCLOUD_WWW_HTTP_URL) {
   // looks like we are running on DotCloud, adjust our world
-  var HOST_URL = 'https://' + process.env.DOTCLOUD_WWW_HTTP_HOST
+//  var HOST_URL = 'https://' + process.env.DOTCLOUD_WWW_HTTP_HOST
+// temp hack while DotCloud is fixing their certs
+  var HOST_URL = 'http://' + process.env.DOTCLOUD_WWW_HTTP_HOST
 }
 
 // returnURL and callbackURL are constructed from the host that we are loaded from

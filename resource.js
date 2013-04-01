@@ -276,6 +276,12 @@ exports.membershipNumber = function () {
 }
 
 exports.oauth = function () {
+
+
+console.log('\n AuthorizationsList\n dummyNoSql\n',db.dump())
+
+
+
   return (
     [ requestCheck()
     , makeCheckToken(
@@ -297,6 +303,12 @@ exports.oauth = function () {
 }
 
 exports.membershipAnytimeStatus = function () {
+
+
+console.log('\n AuthorizationsList\n dummyNoSql\n',db.dump())
+
+
+
   return (
     [ makeOauthCheck( ['http://' + config.appID+'/scope/anytime/status'] )
     , getStatus
@@ -304,6 +316,12 @@ exports.membershipAnytimeStatus = function () {
 }
 
 exports.membershipAnytimeNumber = function () {
+
+
+console.log('\n AuthorizationsList\n dummyNoSql\n',db.dump())
+
+
+
   return (
     [ makeOauthCheck( ['http://' + config.appID+'/scope/anytime/number'] )
     , getNumber
@@ -311,6 +329,9 @@ exports.membershipAnytimeNumber = function () {
 }
 
 exports.AuthorizationsList = function () {
+
+console.log('\n AuthorizationsList\n dummyNoSql\n',db.dump())
+
   return (
     [ requestCheck( {'registrar.a2p3.net': true} )
     , makeCheckToken()

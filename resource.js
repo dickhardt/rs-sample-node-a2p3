@@ -217,9 +217,6 @@ function _makeDeleteAuthNRequest ( di, app ) {
 function listAuthN ( req, res, next ) {
 
   var di = req.token.sub
-
-console.log('\n AuthorizationsList\n dummyNoSql\n',db.dump(),'\nreq.token\n',req.token)
-
   db.oauthList( di, function ( e, results ) {
     if (e) return next( e )
     if (!results) return res.send( { result: {} } )
@@ -254,9 +251,6 @@ function getStatus ( req, res, next ) {
 }
 
 function getNumber ( req, res, next ) {
-
-console.log('\n getNumber\n dummyNoSql\n',db.dump())
-
   var di = req.directedIdentity
   if (!di) return next( new Error ('No DI found') )
   db.getProfile( di, function ( e, profile ) {
@@ -290,9 +284,6 @@ exports.oauth = function () {
       , 'http://' + config.appID+'/scope//anytime/number'
       ] )
     , function ( req, res, next ) {
-
-console.log('\n oauth\n dummyNoSql\n',db.dump())
-
         var details =
           { scopes: req.token['token.a2p3.org'].scopes
           , app: req.token['token.a2p3.org'].app

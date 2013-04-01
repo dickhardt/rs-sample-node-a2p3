@@ -163,9 +163,6 @@ describe('Testing /lawyer ', function () {
         r.result.should.have.property('di')
         // save for later
         di = r.result.di
-
-    console.log('\n DI:'+di+'\n')
-
         done( null )
       })
     })
@@ -1162,9 +1159,6 @@ describe('Removing authorization to ' + TEST_APP_ID, function () {
         should.exist( json )
         json.should.not.have.property('error')
         json.should.have.property('result')
-
-console.log('\n /authorizations/requests',json)
-
         json.result.should.have.property( config.appID )
         // save resourceRequest for next step
         resourceRequest = json.result[ config.appID ]

@@ -24,7 +24,7 @@
   }
 , "scripts":
   { "test": "mocha"
-  , "config": "node ./node_modules/a2p3/setup/config.js"
+  , "config": "node ./setup/config.js"
   , "register": "node ./node_modules/a2p3/setup/register.js config.json"
   }
 }

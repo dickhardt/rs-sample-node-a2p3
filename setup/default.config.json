@@ -1,0 +1,10 @@
+{ "appID":  "XXX.example.com"
+, "name": "Sample Resource Server"
+, "device": "SET_THIS_TO_THE_DEVICE_VALUE_FROM_YOUR_CLI_AGENT"
+, "token": "SET_THIS_TO_THE_TOKEN_VALUE_FROM_YOUR_CLI_AGENT"
+, "anytime": true
+, "resources":
+  [ "email.a2p3.net"
+  , "people.a2p3.net"
+  ]
+}

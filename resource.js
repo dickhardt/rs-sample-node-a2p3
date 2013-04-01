@@ -215,6 +215,9 @@ function _makeDeleteAuthNRequest ( di, app ) {
 
 // list all authorizations provided by user
 function listAuthN ( req, res, next ) {
+
+console.log('\n AuthorizationsList\n dummyNoSql\n',db.dump())
+
   var di = req.token.sub
   db.oauthList( di, function ( e, results ) {
     if (e) return next( e )
@@ -250,6 +253,9 @@ function getStatus ( req, res, next ) {
 }
 
 function getNumber ( req, res, next ) {
+
+console.log('\n getNumber\n dummyNoSql\n',db.dump())
+
   var di = req.directedIdentity
   if (!di) return next( new Error ('No DI found') )
   db.getProfile( di, function ( e, profile ) {
@@ -276,12 +282,6 @@ exports.membershipNumber = function () {
 }
 
 exports.oauth = function () {
-
-
-console.log('\n AuthorizationsList\n dummyNoSql\n',db.dump())
-
-
-
   return (
     [ requestCheck()
     , makeCheckToken(
@@ -289,6 +289,9 @@ console.log('\n AuthorizationsList\n dummyNoSql\n',db.dump())
       , 'http://' + config.appID+'/scope//anytime/number'
       ] )
     , function ( req, res, next ) {
+
+console.log('\n oauth\n dummyNoSql\n',db.dump())
+
         var details =
           { scopes: req.token['token.a2p3.org'].scopes
           , app: req.token['token.a2p3.org'].app
@@ -303,12 +306,6 @@ console.log('\n AuthorizationsList\n dummyNoSql\n',db.dump())
 }
 
 exports.membershipAnytimeStatus = function () {
-
-
-console.log('\n AuthorizationsList\n dummyNoSql\n',db.dump())
-
-
-
   return (
     [ makeOauthCheck( ['http://' + config.appID+'/scope/anytime/status'] )
     , getStatus
@@ -316,12 +313,6 @@ console.log('\n AuthorizationsList\n dummyNoSql\n',db.dump())
 }
 
 exports.membershipAnytimeNumber = function () {
-
-
-console.log('\n AuthorizationsList\n dummyNoSql\n',db.dump())
-
-
-
   return (
     [ makeOauthCheck( ['http://' + config.appID+'/scope/anytime/number'] )
     , getNumber
@@ -329,9 +320,6 @@ console.log('\n AuthorizationsList\n dummyNoSql\n',db.dump())
 }
 
 exports.AuthorizationsList = function () {
-
-console.log('\n AuthorizationsList\n dummyNoSql\n',db.dump())
-
   return (
     [ requestCheck( {'registrar.a2p3.net': true} )
     , makeCheckToken()

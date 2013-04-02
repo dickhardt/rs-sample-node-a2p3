@@ -524,6 +524,7 @@ body img[height="1"] {
 		height: auto;
 		overflow: hidden;
 	}
+
 	.mainContentWrap {
 		width: 380px;
 		margin: auto;
@@ -565,6 +566,10 @@ body img[height="1"] {
 	}
 	.footer p {
 		text-align: center;
+	}
+	
+	.genericButton {
+		line-height: 3;
 	}
 }
 

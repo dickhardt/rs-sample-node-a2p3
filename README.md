@@ -51,6 +51,8 @@ NOTE: this application needs a later version of node.js than the standard one on
 
 ##Windows Azure Deployment
 
+####NOTE: SOMETHING IS NOT HAPPY IN THE AZURE DEPLOYMENT :(
+
 1) Register at [Windows Azure](http://www.windowsazure.com) and [build and deploy a Node.js web site](http://www.windowsazure.com/en-us/develop/nodejs/tutorials/create-a-website-(mac)) if you have not done it before.
 
 2) Create a new website and set up deployment to use a **local git** repository. Remember your **username**, **password** and copy the resulting **git repo** that is hosted at Azure.

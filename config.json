@@ -1,0 +1,21 @@
+{ "appID":  "a2p3-law-sample.azurewebsites.net"
+, "name": "Sample Law Resource Server"
+, "device": "24qP4XrRm8Y2pF4C6ZjFxQ"
+, "token": "Cxid5VOxLP8wSQAlHaCnWg"
+, "anytime": true
+, "resources":
+  [ "email.a2p3.net"
+  , "people.a2p3.net"
+  ]
+, "crypto":
+  { "alg":
+    { "JWE": "A256CBC+HS512"
+    , "JWS": "HS512"
+    }
+  , "bytesKey": 64
+  , "bytesKid": 12
+  , "bytesDI": 20
+  , "bytesHandle": 20
+  , "bytesSecret": 20
+  }
+}

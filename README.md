@@ -14,9 +14,9 @@ Sample Resource Server for A2P3
 - [DotCloud](http://dotcloud.com) account
 
 ##Install and Setup
-1) `git clone git://github.com/dickhardt/sample-node-a2p3.git`
+1) `git clone git://github.com/dickhardt/rs-sample-node-a2p3.git`
 
-2) `cd sample-node-a2p3`
+2) `cd rs-sample-node-a2p3`
 
 3) `npm install`
 
@@ -24,7 +24,7 @@ Sample Resource Server for A2P3
 
 5) Register if need be at [setup.a2p3.net](http://setup.a2p3.net) and create a CLI Agent and save the device and token parameters
 
-6) Edit config.json and insert the `device` and `token` parameters
+6) Edit config.json and insert the `device` and `token` parameters and set `appID` to your machine name (it must not conflict with any Apps already registered at the Registrar)
 
 7) `npm run register` to create the vault.json file
 
@@ -47,16 +47,39 @@ See [node-a2p3](https://github.com/dickhardt/node-a2p3) for details
 
 5) `dotcloud push` will deploy to dotcloud
 
-NOTE: this application needs a later version of node.js than the standard one on DotCloud, so node.js 0.8.17 is built to run the app
+NOTE: this application needs a later version of node.js than the standard one on DotCloud, so node.js 0.8.17 is built to run the app => the first deploy will take some time to build, will not need to rebuild in future deployments.
 
+##Windows Azure Deployment
+
+1) Register at [Windows Azure](http://www.windowsazure.com) and [build and deploy a Node.js web site](http://www.windowsazure.com/en-us/develop/nodejs/tutorials/create-a-website-(mac)) if you have not done it before.
+
+2) Create a new website and set up deployment to use a **local git** repository. Remember your **username**, **password** and copy the resulting **git repo** that is hosted at Azure.
+
+3) `git remote add azure <git repo at azure>` will add a git remote to your local copy of the Sample App
+
+4) Edit the appID in `config.json` to be the hostname you created for your app on Azure.
+
+5) `npm run register` to create a new `vault.json` file for the new hostname.
+
+6) Add the generated vault.json and config.json files to the repo so that they will be deployed to Azure.
+
+	git add -f vault.json 
+	git add -f config.json
+
+7) `git commit -m "adding in vault.json and config.js"` to commit new files to local repo
+
+8) `git push azure master` will push the code to Azure. You will need to enter your credentials you created in (2)
 
 ##Testing
 `npm test` will run the tests
 
-you may need to edit some constants in /test/test.js 
+NOTE: see the comments in test/test.js for values you will need to modify to run a test
 
 The server must be running to be tested, and the DB needs to be empty.
 Stopping and restarting the server will clear the in-memory DB.
+
+##Database
+This sample stores all of its data in an large JSON object. The DB API calls are all have prcoess.nextTick() calls so that it acts async. To have resilient storage, rewrite db_dev.js to expose the same API but work with the database of your choice.
 
 ## Related
 

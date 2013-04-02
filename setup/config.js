@@ -17,9 +17,7 @@ function randomString () {
 if ( fs.existsSync( CONFIG_FILE ) ) {
   console.log('Using existing config.json')
 } else {
-  console.log( 'Creating config.json\nRemember to insert your CLI "device" and "token" values into config.json.' )
+  console.log( 'Creating config.json\nRemember to edit the config.json file and enter a unique hostname\n and insert your CLI "device" and "token" values.' )
   var data = fs.readFileSync( __dirname + '/default.config.json' ).toString()
-  // prepend random string so that AppID is unique if not changed
-  data = data.replace( /XXX/g , randomString() )
   fs.writeFileSync( CONFIG_FILE, data )
 }

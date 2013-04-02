@@ -1,4 +1,4 @@
-{ "appID":  "XXX.example.com"
+{ "appID":  "SET_THIS_TO_BE_THE_HOSTNAME_YOU_CAN_RUN_ON"
 , "name": "Sample Resource Server"
 , "device": "SET_THIS_TO_THE_DEVICE_VALUE_FROM_YOUR_CLI_AGENT"
 , "token": "SET_THIS_TO_THE_TOKEN_VALUE_FROM_YOUR_CLI_AGENT"

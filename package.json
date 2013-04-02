@@ -17,7 +17,7 @@
 , "devDependencies":
   { "chai": "*"
   }
-, "engines" : { "node" : "0.8.x" }
+, "engines" : { "node" : "0.8.17" }
 , "repository":
   { "type": "git"
   , "url": "http://github.com:dickhardt/rs-sample-node-A2P3.git"

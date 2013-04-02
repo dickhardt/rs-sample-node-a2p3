@@ -30,4 +30,3 @@ node_env: development
 # flushResponse: false
 # enableXFF: false
 # promoteServerVars:
-nodeProcessCommandLine: "D:\Program Files (x86)\nodejs\0.8.17\node.exe"

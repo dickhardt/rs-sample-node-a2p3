@@ -3,52 +3,65 @@
 <head>
 <style type="text/css">
   .loginStatus {text-align:center;}
-    #updateStatus_form{border:1px solid #999; -webkit-box-shadow: 0px 0px 6px #CCC; background-color:#FFF; position: absolute; top:400px; left:25%; margin-left:-125px; padding:10px; border-radius:4px;}
+    #updateStatus_form{border:1px solid #999; -webkit-box-shadow: 0px 0px 6px #CCC; background-color:#FFF; position: absolute; top:350px; left:25%; margin-left:-50px; padding:10px; border-radius:4px;}
 </style>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,user-scalable=no">
 	<link rel="stylesheet" href="/style.css">
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery-ui.css">
 </head>
 <body>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-  <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script> 
   <script src="/jquery.qrcode.min.js"></script>
 <header class="header">
 	<section class="headerContainer">
 		<a href="http://a2p3.net"><img class="headerLogo" alt="A2P3" src="/images/a2p3_logo.png" border="0"></a>
 		<span class="mainTitle">Law Society</span>
-		<div class="mainTitleText">Welcome to the Member Portal</div>
-		<div class="loginStatus">
-		  <a href="/logout" id="logout" class="genericSmallButton">Logout</a>
-		</div>
-		<div style="" class="di">
-	      <br>
-		  <span id="directedIdentifier"></span>
-		  <a class="otherLinks" href="" id="showDI">show DI</a>
-		  <a class="otherLinks" href="" id="hideDI">hide DI</a>
-		</div>
+		<span class="mainTitleText"><br>Welcome to the Member Portal</span>
+		<span style="float:right;">
+			<a class="genericButton" href="/logout" id="logout">Logout </a>
+		</span>
 	
 	</section>
 </header>
 
 <section class="mainContent">
+	
 	<div class="mainContentWrap">
-		<div id="profileSection" class="genericSection">
-			<a id="accountDelete" class="genericButton" style="float:right;top:0px:right:0px;" href="">Delete Account</a>
-			<div id="enrollmentDescriptionSection" style="top:0px; right: 50%; float:right; width:50%;">
-		      <p>If this were a real enrollment process, the name, DOB, address, email and membership number and any other shared identity idenity would be confirmed to match information in the existing database. When the user confirms, the A2P3 Directed Identifier would be linked to the existing database and the user would be able authorize apps to access their their membership status and membership number.</p>
-	      	</div>
-
-			<div class="categoryTitle">Profile</div>
-			
-			<table id="profileTable" class=""> </table>
-
-		</div>
-		<div id="membershipSection" class="genericSection">
-			<table id="membershipTable"></table>
+		<div style="text-align: right;">
+			<span id="directedIdentifier"></span>
+		    <a class="otherLinks" href="" id="showDI">show DI</a>
+		    <a class="otherLinks" href="" id="hideDI">hide DI</a>
 		</div>
 		
+		<div id="profileSection" class="genericSection">
+			<span style="float:right;">
+				<br>
+				<br>
+				<a id="accountDelete" class="genericButton" href="">Delete Account</a>
+			</span>
+			<div class="enrollmentDescriptionSection" id="enrollmentDescriptionSection">
+		      <p style="font-size: 125%;">If this were a real enrollment process, the name, DOB, address, email and membership number and any other shared identity idenity would be confirmed to match information in the existing database. When the user confirms, the A2P3 Directed Identifier would be linked to the existing database and the user would be able authorize apps to access their their membership status and membership number.</p>
+	   		</div>
+			<div class="categoryTitle">Profile</div>
+			
+			<div>
+				<img id="photo" class="photoImage" src="">
+				<span id="name" style="font-size: 150%; vertical-align: bottom;"></span>
+			</div>
+
+			<div>
+				DOB: <span id="dob"></span>
+			</div>
+			<div id="address1"></div>
+			<div id="address2"></div>
+			<span id="city"></span>,&nbsp;
+			<span id="province"></span>&nbsp;
+			<span id="postal"></span><br>
+			<div id="email"></div>
+		
+		</div>
     
     <div id="enrollmentSection" class="genericSection">
       <div class="categoryTitle">Membership Verification
@@ -65,11 +78,10 @@
     <div id="statusSection" class="genericSection">
       <div class="categoryTitle">Membership Status
         <p>
-          <div id="membershipStatus"></div>
+          <span id="membershipStatus"></span>
+          <a id="changeStatus" class="genericButton" href="">Change&nbsp;Status</a>
         </p>
       </div>
-      <a id="changeStatus" class="genericButton" href="">Change Status</a>
-	  
 	  <br><br>
     </div>
 
@@ -156,7 +168,7 @@ function onReady() {
   $('#accountDelete').click(function() {
 
     $("#userDeleteDialogConfirm").dialog({
-      width : 400,
+      width : 300,
       buttons : {
         "No" : function() {
           $(this).dialog("close");
@@ -183,9 +195,9 @@ function onReady() {
     $.each( profile, function ( item, value ) {
       if (item == 'status' || item == 'di') return
       if (item == 'photo') {
-        $('#profileTable').append('<tr><td class="genericLabel">' + item + ':</td><td><img class="photoImage" src="' + value + '"></td></tr>')
+        $('#' + item).attr("src", value);
       } else {
-        $('#profileTable').append('<tr><td class="genericLabel">' + item + ':</td><td class="">' + value + '</td></tr>')
+        $('#' + item).text(value);
       }
     })
     $('#profileSection').show()

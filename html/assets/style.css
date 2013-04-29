@@ -291,7 +291,7 @@ body img[height="1"] {
 	color: #000000;
 	font-size: 15px;
 	outline: none;
-	padding-right: 75px;
+	padding-right: 0px;
 }
 
 .mainContentSubTitleTwo {
@@ -445,6 +445,14 @@ body img[height="1"] {
 	/*margin-top: -20px;*/
 }
 
+.enrollmentDescriptionSection {
+	top:0px; 
+	right: 50%; 
+	float:right; 
+	width:50%; 
+}
+
+
 /*For screens with max width of 980px */
 @media only screen and (max-width: 979px) {
 	.headerContainer {
@@ -516,6 +524,8 @@ body img[height="1"] {
 	}
 }
 
+
+
 /*For screens with max width of 420px */
 @media only screen and (max-width: 419px) {
 	.headerContainer,.features {
@@ -526,11 +536,14 @@ body img[height="1"] {
 	}
 
 	.mainContentWrap {
-		width: 380px;
+		width: 300px;
 		margin: auto;
 		padding-top: 10px;
 		padding-bottom: 10px;
 		line-height: 1;
+	}
+	.dashboardSection {
+		width: 270px;
 	}
 	.formItemTitle {
 		font-size: 13px;
@@ -569,9 +582,17 @@ body img[height="1"] {
 	}
 	
 	.genericButton {
-		line-height: 3;
+		line-height: 2.5;
+	}
+	
+	.enrollmentDescriptionSection {
+		float:none;
+		right:auto;
+		top:auto;
+		width: auto;
 	}
 }
+
 
 .otherLinks {
 	text-decoration: underline;
@@ -603,4 +624,12 @@ body img[height="1"] {
 .headerLogo {
 	float:left;
 	padding-right: 8px;
+}
+
+.ui-widget-header {
+	background: none !important;
+}
+
+.ui-dialog-titlebar {
+	border: 0px !important;
 }

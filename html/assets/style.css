@@ -445,6 +445,14 @@ body img[height="1"] {
 	/*margin-top: -20px;*/
 }
 
+.enrollmentDescriptionSection {
+	top:0px; 
+	right: 50%; 
+	float:right; 
+	width:50%; 
+}
+
+
 /*For screens with max width of 980px */
 @media only screen and (max-width: 979px) {
 	.headerContainer {
@@ -516,6 +524,8 @@ body img[height="1"] {
 	}
 }
 
+
+
 /*For screens with max width of 420px */
 @media only screen and (max-width: 419px) {
 	.headerContainer,.features {
@@ -574,7 +584,15 @@ body img[height="1"] {
 	.genericButton {
 		line-height: 2.5;
 	}
+	
+	.enrollmentDescriptionSection {
+		float:none;
+		right:auto;
+		top:auto;
+		width: auto;
+	}
 }
+
 
 .otherLinks {
 	text-decoration: underline;

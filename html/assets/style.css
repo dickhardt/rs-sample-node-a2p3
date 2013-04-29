@@ -291,7 +291,7 @@ body img[height="1"] {
 	color: #000000;
 	font-size: 15px;
 	outline: none;
-	padding-right: 75px;
+	padding-right: 0px;
 }
 
 .mainContentSubTitleTwo {
@@ -526,11 +526,14 @@ body img[height="1"] {
 	}
 
 	.mainContentWrap {
-		width: 380px;
+		width: 300px;
 		margin: auto;
 		padding-top: 10px;
 		padding-bottom: 10px;
 		line-height: 1;
+	}
+	.dashboardSection {
+		width: 270px;
 	}
 	.formItemTitle {
 		font-size: 13px;
@@ -569,7 +572,7 @@ body img[height="1"] {
 	}
 	
 	.genericButton {
-		line-height: 3;
+		line-height: 2.5;
 	}
 }
 

@@ -3,7 +3,7 @@
 <head>
 <style type="text/css">
   .loginStatus {text-align:center;}
-    #updateStatus_form{border:1px solid #999; -webkit-box-shadow: 0px 0px 6px #CCC; background-color:#FFF; position: absolute; top:400px; left:25%; margin-left:-125px; padding:10px; border-radius:4px;}
+    #updateStatus_form{border:1px solid #999; -webkit-box-shadow: 0px 0px 6px #CCC; background-color:#FFF; position: absolute; top:350px; left:25%; margin-left:-50px; padding:10px; border-radius:4px;}
 </style>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,user-scalable=no">
@@ -18,32 +18,39 @@
 	<section class="headerContainer">
 		<a href="http://a2p3.net"><img class="headerLogo" alt="A2P3" src="/images/a2p3_logo.png" border="0"></a>
 		<span class="mainTitle">Law Society</span>
-		<div class="mainTitleText">Welcome to the Member Portal</div>
-		<div class="loginStatus">
-		  <a href="/logout" id="logout" class="genericSmallButton">Logout</a>
-		</div>
-		<div style="" class="di">
-	      <br>
-		  <span id="directedIdentifier"></span>
-		  <a class="otherLinks" href="" id="showDI">show DI</a>
-		  <a class="otherLinks" href="" id="hideDI">hide DI</a>
-		</div>
+		<span class="mainTitleText"><br>Welcome to the Member Portal</span>
+		<span style="float:right;">
+			<a class="genericButton" href="/logout" id="logout">Logout </a>
+		</span>
 	
 	</section>
 </header>
 
 <section class="mainContent">
+	
 	<div class="mainContentWrap">
+		<div style="text-align: right;">
+			<span id="directedIdentifier"></span>
+		    <a class="otherLinks" href="" id="showDI">show DI</a>
+		    <a class="otherLinks" href="" id="hideDI">hide DI</a>
+		</div>
+		
 		<div id="profileSection" class="genericSection">
-			<a id="accountDelete" class="genericButton" style="float:right;top:0px:right:0px;" href="">Delete Account</a>
+			<span style="float:right;">
+				<br>
+				<br>
+				<a id="accountDelete" class="genericButton" href="">Delete Account</a>
+			</span>
 			<div id="enrollmentDescriptionSection" style="top:0px; right: 50%; float:right; width:50%;">
 		      <p style="font-size: 125%;">If this were a real enrollment process, the name, DOB, address, email and membership number and any other shared identity idenity would be confirmed to match information in the existing database. When the user confirms, the A2P3 Directed Identifier would be linked to the existing database and the user would be able authorize apps to access their their membership status and membership number.</p>
-	      	</div>
+	   		</div>
 			<div class="categoryTitle">Profile</div>
+			
 			<div>
 				<img id="photo" class="photoImage" src="">
 				<span id="name" style="font-size: 150%; vertical-align: bottom;"></span>
 			</div>
+
 			<div>
 				DOB: <span id="dob"></span>
 			</div>
@@ -71,7 +78,7 @@
       <div class="categoryTitle">Membership Status
         <p>
           <span id="membershipStatus"></span>
-          <a id="changeStatus" class="genericButton" href="">Change Status</a>
+          <a id="changeStatus" class="genericButton" href="">Change&nbsp;Status</a>
         </p>
       </div>
 	  <br><br>
@@ -160,7 +167,7 @@ function onReady() {
   $('#accountDelete').click(function() {
 
     $("#userDeleteDialogConfirm").dialog({
-      width : 400,
+      width : 300,
       buttons : {
         "No" : function() {
           $(this).dialog("close");

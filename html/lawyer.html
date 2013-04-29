@@ -37,18 +37,23 @@
 		<div id="profileSection" class="genericSection">
 			<a id="accountDelete" class="genericButton" style="float:right;top:0px:right:0px;" href="">Delete Account</a>
 			<div id="enrollmentDescriptionSection" style="top:0px; right: 50%; float:right; width:50%;">
-		      <p>If this were a real enrollment process, the name, DOB, address, email and membership number and any other shared identity idenity would be confirmed to match information in the existing database. When the user confirms, the A2P3 Directed Identifier would be linked to the existing database and the user would be able authorize apps to access their their membership status and membership number.</p>
+		      <p style="font-size: 125%;">If this were a real enrollment process, the name, DOB, address, email and membership number and any other shared identity idenity would be confirmed to match information in the existing database. When the user confirms, the A2P3 Directed Identifier would be linked to the existing database and the user would be able authorize apps to access their their membership status and membership number.</p>
 	      	</div>
-
 			<div class="categoryTitle">Profile</div>
-			
-			<table id="profileTable" class=""> </table>
-
+			<div>
+				<img id="photo" class="photoImage" src="">
+				<span id="name" style="font-size: 150%; vertical-align: bottom;"></span>
+			</div>
+			<div>
+				DOB: <span id="dob"></span>
+			</div>
+			<div id="address1"></div>
+			<div id="address2"></div>
+			<span id="city"></span>,&nbsp;
+			<span id="province"></span>&nbsp;
+			<span id="postal"></span><br>
+			<div id="email"></div>
 		</div>
-		<div id="membershipSection" class="genericSection">
-			<table id="membershipTable"></table>
-		</div>
-		
     
     <div id="enrollmentSection" class="genericSection">
       <div class="categoryTitle">Membership Verification
@@ -65,11 +70,10 @@
     <div id="statusSection" class="genericSection">
       <div class="categoryTitle">Membership Status
         <p>
-          <div id="membershipStatus"></div>
+          <span id="membershipStatus"></span>
+          <a id="changeStatus" class="genericButton" href="">Change Status</a>
         </p>
       </div>
-      <a id="changeStatus" class="genericButton" href="">Change Status</a>
-	  
 	  <br><br>
     </div>
 
@@ -183,9 +187,9 @@ function onReady() {
     $.each( profile, function ( item, value ) {
       if (item == 'status' || item == 'di') return
       if (item == 'photo') {
-        $('#profileTable').append('<tr><td class="genericLabel">' + item + ':</td><td><img class="photoImage" src="' + value + '"></td></tr>')
+        $('#' + item).attr("src", value);
       } else {
-        $('#profileTable').append('<tr><td class="genericLabel">' + item + ':</td><td class="">' + value + '</td></tr>')
+        $('#' + item).text(value);
       }
     })
     $('#profileSection').show()

@@ -46,9 +46,9 @@
               <TH width="50px" role="columnheader" class="tableRowMembershipPhoto">Photo</TH>
               <TH role="columnheader" class="tableRowMembershipName">Name</TH>
               <TH role="columnheader" class="tableRowMembershipEmail">Email</TH>
-              <TH width="90px" role="columnheader" class="tableRowMembershipDOB">Date of Birth</TH>
-              <TH width="90px" role="columnheader" class="tableRowMembershipNumber">Number</TH>
-              <TH role="columnheader" class="tableRowMembershipStatus">Status</TH>
+              <TH width="120px" role="columnheader" class="tableRowMembershipDOB">Date of Birth</TH>
+              <TH width="70px" role="columnheader" class="tableRowMembershipNumber">Number</TH>
+              <TH width="130px" role="columnheader" class="tableRowMembershipStatus">Status</TH>
               <TH role="columnheader" class="tableRowMembershipUpdateStatus"></TH>
             </tr>
           </thead>
@@ -188,6 +188,10 @@ function onReady() {
       $('#table-Applications').dataTable().fnClearTable()
       for (var i=0; i<data.result.length; i++) {
         var row = data.result[i]
+        row[3] = new Date(parseInt(row[3])).toDateString();
+        if (row[4] != 'never accessed') {
+        	row[4] = new Date(parseInt(row[4])).toDateString();
+        }
         $('#table-Applications').dataTable().fnAddData( row )
       }
     }

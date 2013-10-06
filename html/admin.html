@@ -9,22 +9,22 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,user-scalable=no">
 	<link rel="stylesheet" href="/style.css">
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-  <link rel="stylesheet" href="/jquery.dataTables.css">
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/jquery.dataTables.css">
 
 </head>
 <body>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-  <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script> 
   <script type="text/javascript" src="/jquery.dataTables.js"></script>
 <header class="header">
 	<section class="headerContainer">
 		<a href="http://a2p3.net"><img class="headerLogo" alt="A2P3" src="/images/a2p3_logo.png" border="0"></a>
 		<span class="mainTitle">Law Society</span>
-		<div class="mainTitleText">Administrative Portal</div>
-		<div class="loginStatus">
-		  <a href="/logout" id="logout" class="genericSmallButton">Logout</a>
-		</div>
+		<span class="mainTitleText"><br>Administrative Portal</span>
+		<span style="float:right;">
+			<a class="genericButton" href="/logout" id="logout">Logout </a>
+		</span>
 	</section>
 </header>
 
@@ -46,9 +46,9 @@
               <TH width="50px" role="columnheader" class="tableRowMembershipPhoto">Photo</TH>
               <TH role="columnheader" class="tableRowMembershipName">Name</TH>
               <TH role="columnheader" class="tableRowMembershipEmail">Email</TH>
-              <TH width="90px" role="columnheader" class="tableRowMembershipDOB">Date of Birth</TH>
-              <TH width="90px" role="columnheader" class="tableRowMembershipNumber">Number</TH>
-              <TH role="columnheader" class="tableRowMembershipStatus">Status</TH>
+              <TH width="120px" role="columnheader" class="tableRowMembershipDOB">Date of Birth</TH>
+              <TH width="70px" role="columnheader" class="tableRowMembershipNumber">Number</TH>
+              <TH width="130px" role="columnheader" class="tableRowMembershipStatus">Status</TH>
               <TH role="columnheader" class="tableRowMembershipUpdateStatus"></TH>
             </tr>
           </thead>
@@ -188,6 +188,10 @@ function onReady() {
       $('#table-Applications').dataTable().fnClearTable()
       for (var i=0; i<data.result.length; i++) {
         var row = data.result[i]
+        row[3] = new Date(parseInt(row[3])).toDateString();
+        if (row[4] != 'never accessed') {
+        	row[4] = new Date(parseInt(row[4])).toDateString();
+        }
         $('#table-Applications').dataTable().fnAddData( row )
       }
     }

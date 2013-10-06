@@ -805,6 +805,27 @@ describe('Getting IX keys for '+TEST_APP_ID, function () {
     })
   })
 
+  // fetch list to populate list of apps admin can access
+  describe(' /dashboard/list/apps', function () {
+    it('should return empty list of apps', function (done) {
+      var options =
+        { url: 'http://registrar.a2p3.net/dashboard/list/apps'
+        , method: 'POST'
+        }
+      fetch( options, function ( e, response, body ) {
+        should.not.exist( e )
+        should.exist( response )
+        response.statusCode.should.equal( 200 )
+        should.exist( body )
+        var r = JSON.parse( body )
+        should.exist( r )
+        r.should.not.have.property('error')
+        r.should.have.property('result')
+        done( null )
+      })
+    })
+  })
+
   describe('-> /dashboard/app/details', function () {
     it('should return keys', function (done) {
       var options =

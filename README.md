@@ -35,23 +35,25 @@ See [node-a2p3](https://github.com/dickhardt/node-a2p3) for details
 
 ## Deployment to AWS Elastic Beanstalk
 
-NEED TO GENERATE KEYS FOR THE HOST THAT IS BEING RUN AT AWS!!!
+1) Decide what hostname you will be using for you Resource Server. Set the `appID` in config.json and rerun `npm run register` to generate a new vault.json if it is different.
 
-1) Add the generated vault.json and config.json files to the local repo so that they will be deployed to AWS:
+2) Add the generated vault.json and config.json files to the local repo so that they will be deployed to AWS:
 
   git add -f vault.json
   git add -f config.json
   git commit -a -m"add in vault and config"
 
-2) Browse to [AWS](http://aws.amazon.com) and register or login.
+3) Browse to [AWS](http://aws.amazon.com) and register or login.
 
-3) Get your Access Key ID and Secret Access Key from [Security Credentials](https://portal.aws.amazon.com/gp/aws/securityCredentials)
+4) Get your Access Key ID and Secret Access Key from [Security Credentials](https://portal.aws.amazon.com/gp/aws/securityCredentials)
 
-4) Install and setup the [eb](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/usingCLI.html) CLI tools.
+5) Install and setup the [eb](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/usingCLI.html) CLI tools.
 
-5) `eb init` providing your Access Key ID and Secret Access Key and accept all defaults
+6) `eb init` providing your Access Key ID and Secret Access Key and accept all defaults. Note the sample does not use an external Database, you will need to modify the sample to use one.
 
-6) `eb start` will deply and start your application
+7) `eb start` will deply and start your application
+
+8) Configure your DNS or to point your host name to the host at elasticbeanstalk.com where your RS is deployed.
 
 When you make changes, `git aws.push` will upload your local commits to AWS (remember to `git commit -a -m"<commit description here>"`)
 

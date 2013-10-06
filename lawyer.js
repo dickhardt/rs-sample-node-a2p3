@@ -82,7 +82,7 @@ exports.loginDirect = function ( req, res ) {
   if (req.query && req.query.json) {  // client wants JSON,
     return res.send( { result: {'request': redirectURL } } )
   } else {
-    var html = common.metaRedirectInfoPage( redirectURL )
+    var html = common.metaRedirectInfoPage( redirectURL, req.headers['user-agent'] )
     return res.send( html )
   }
 }

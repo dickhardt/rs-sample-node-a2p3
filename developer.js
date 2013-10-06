@@ -93,7 +93,7 @@ exports.qrCode = function ( req, res ) {
     return res.send( response )
   } else {
     var redirectURL = 'a2p3://token?request=' + agentRequest + '&state=' + qrSession
-    var html =  common.metaRedirectInfoPage( redirectURL )
+    var html =  common.metaRedirectInfoPage( redirectURL, req.headers['user-agent'] )
     return res.send( html )
     }
 

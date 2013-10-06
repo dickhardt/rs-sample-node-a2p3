@@ -11,7 +11,7 @@ Sample Resource Server for A2P3
 - Facebook account
 
 ####Optional
-- [DotCloud](http://dotcloud.com) account
+- [AWS](http://aws.amazon.com) account
 
 ##Install and Setup
 1) `git clone git://github.com/dickhardt/rs-sample-node-a2p3.git`
@@ -33,44 +33,30 @@ Sample Resource Server for A2P3
 ####config.json and vault.json
 See [node-a2p3](https://github.com/dickhardt/node-a2p3) for details
 
+## Deployment to AWS Elastic Beanstalk
 
+NEED TO GENERATE KEYS FOR THE HOST THAT IS BEING RUN AT AWS!!!
 
-##DotCloud Deployment
+1) Add the generated vault.json and config.json files to the local repo so that they will be deployed to AWS:
 
-1) Register at [DotCloud](http://dotcloud.com) for a free account and install the dotcloud CLI. Note your account name.
+  git add -f vault.json
+  git add -f config.json
+  git commit -a -m"add in vault and config"
 
-2) `dotcloud create lawsample` answer yes to link
+2) Browse to [AWS](http://aws.amazon.com) and register or login.
 
-3) Edit config.json and change `appID` to `lawsample-`<dotcloud_account_name>`.dotcloud.com`
+3) Get your Access Key ID and Secret Access Key from [Security Credentials](https://portal.aws.amazon.com/gp/aws/securityCredentials)
 
-4) `npm run register` to create a vault.json file for the DotCloud hostname
+4) Install and setup the [eb](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/usingCLI.html) CLI tools.
 
-5) `dotcloud push` will deploy to dotcloud
+5) `eb init` providing your Access Key ID and Secret Access Key and accept all defaults
 
-NOTE: this application needs a later version of node.js than the standard one on DotCloud, so node.js 0.8.17 is built to run the app => the first deploy will take some time to build, will not need to rebuild in future deployments.
+6) `eb start` will deply and start your application
 
-##Windows Azure Deployment
+When you make changes, `git aws.push` will upload your local commits to AWS (remember to `git commit -a -m"<commit description here>"`)
 
-####NOTE: SOMETHING IS NOT HAPPY IN THE AZURE DEPLOYMENT :(
+Additional documetion on running [Node on Elastic Beanstalk](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_nodejs.html)
 
-1) Register at [Windows Azure](http://www.windowsazure.com) and [build and deploy a Node.js web site](http://www.windowsazure.com/en-us/develop/nodejs/tutorials/create-a-website-(mac)) if you have not done it before.
-
-2) Create a new website and set up deployment to use a **local git** repository. Remember your **username**, **password** and copy the resulting **git repo** that is hosted at Azure.
-
-3) `git remote add azure <git repo at azure>` will add a git remote to your local copy of the Sample App
-
-4) Edit the appID in `config.json` to be the hostname you created for your app on Azure.
-
-5) `npm run register` to create a new `vault.json` file for the new hostname.
-
-6) Add the generated vault.json and config.json files to the repo so that they will be deployed to Azure.
-
-	git add -f vault.json 
-	git add -f config.json
-
-7) `git commit -m "adding in vault.json and config.js"` to commit new files to local repo
-
-8) `git push azure master` will push the code to Azure. You will need to enter your credentials you created in (2)
 
 ##Testing
 `npm test` will run the tests
